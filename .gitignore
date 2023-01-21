@@ -1,0 +1,7 @@
+**/obj/*
+**/bin/*
+*.suo
+**/.vs/*
+**/*.user
+**/PublishProfiles/*
+AOIServer/obj/*

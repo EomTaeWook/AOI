@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Share\Protocol.SAndC\Protocol.SAndC.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CLISystem">
+      <HintPath>..\..\ProjectBattleArena\Server\ServerDll\CLISystem.dll</HintPath>
+    </Reference>
+    <Reference Include="Kosher">
+      <HintPath>..\..\ProjectBattleArena\Server\ServerDll\Kosher.dll</HintPath>
+    </Reference>
+    <Reference Include="Kosher.Extensions">
+      <HintPath>..\..\ProjectBattleArena\Server\ServerDll\Kosher.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Kosher.Sockets">
+      <HintPath>..\..\ProjectBattleArena\Server\ServerDll\Kosher.Sockets.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="KosherLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
