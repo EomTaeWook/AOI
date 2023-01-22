@@ -32,4 +32,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Modules\Handler\Generated\" />
+  </ItemGroup>
+
 </Project>

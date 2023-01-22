@@ -1,0 +1,19 @@
+{
+  "Protocols": [
+    {
+      "Namespace": "AOIServer.Modules.Handler",
+      "BodyType": "string",
+      "ProtocolName": "SAndCProtocol",
+      "ReadAssemblyPath": "..\\Protocol.SAndC\\bin\\Debug\\net7.0\\Protocol.SAndC.dll",
+      "GeneratedPaths": [
+        "..\\..\\AOIServer\\Modules\\Handler\\Generated\\"
+      ]
+    }
+  ],
+  "HandlerFormat": {
+    "ProtocolInterfaceFormat": null,
+    "HandleClassFormat": null,
+    "RegistCabllackFormat": null,
+    "DeserializePacketFormat": null
+  }
+}

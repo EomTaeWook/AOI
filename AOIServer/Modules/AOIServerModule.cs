@@ -1,4 +1,5 @@
-﻿using AOIServer.Modules.Serializer;
+﻿using AOIServer.Modules.Handler;
+using AOIServer.Modules.Serializer;
 using Kosher.Framework;
 using Kosher.Log;
 using Kosher.Sockets;
@@ -31,6 +32,8 @@ namespace AOIServer.Modules
         public AOIServerModule()
         {
             _aoiServer = new AOIServer(new SessionCreator(MakeSerializersFunc));
+
+            SAndCProtocolHandler.Init();
         }
         public void Start()
         {
@@ -48,7 +51,7 @@ namespace AOIServer.Modules
         }
         private Tuple<IPacketSerializer, IPacketDeserializer, ICollection<ISessionComponent>> MakeSerializersFunc()
         {
-            AOIHandler handler = new AOIHandler();
+            SAndCProtocolHandler handler = new();
 
             return Tuple.Create<IPacketSerializer, IPacketDeserializer, ICollection<ISessionComponent>>(
                 new PacketSerializer(),

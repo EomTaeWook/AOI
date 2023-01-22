@@ -2,7 +2,6 @@
 {
     public enum SAndCProtocol : ushort
     {
-        None,
         Move,
         
         Max
