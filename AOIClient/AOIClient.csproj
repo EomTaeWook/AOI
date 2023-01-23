@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>disable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Kosher">
+      <HintPath>..\ShareDll\Kosher.dll</HintPath>
+    </Reference>
+    <Reference Include="Kosher.Extensions">
+      <HintPath>..\ShareDll\Kosher.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Kosher.Sockets">
+      <HintPath>..\ShareDll\Kosher.Sockets.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="KosherLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

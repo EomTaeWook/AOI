@@ -1,4 +1,4 @@
-﻿namespace Protocol.SAndC
+﻿namespace Protocol.CAndS
 {
     public class Move
     {

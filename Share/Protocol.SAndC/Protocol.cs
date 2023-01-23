@@ -2,7 +2,7 @@
 {
     public enum SAndCProtocol : ushort
     {
-        Move,
+        LoginResponse,
         
         Max
     }

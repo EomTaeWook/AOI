@@ -33,7 +33,7 @@ namespace AOIServer.Modules.Handler
                 LogHelper.Error("body is null");
                 return;
             }
-            var packet = DeserializeBody<Protocol.SAndC.Move>(body);
+            var packet = DeserializeBody<Protocol.SAndC.LoginResponse>(body);
             Process(packet);
         }
     }

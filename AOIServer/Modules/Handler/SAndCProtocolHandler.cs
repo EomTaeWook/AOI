@@ -1,6 +1,4 @@
-﻿using AOIServer.Net.Interface;
-using Kosher.Log;
-using Kosher.Sockets;
+﻿using Kosher.Sockets;
 using Kosher.Sockets.Interface;
 using Protocol.SAndC;
 using System.Text.Json;
@@ -15,7 +13,7 @@ namespace AOIServer.Modules.Handler
             return JsonSerializer.Deserialize<T>(body);
         }
         
-        public void Process(Move packet)
+        public void Process(LoginResponse packet)
         {
 
         }
