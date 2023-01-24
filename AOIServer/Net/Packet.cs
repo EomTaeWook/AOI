@@ -1,6 +1,7 @@
 ﻿using Kosher.Sockets.Interface;
-using System.Text.Json;
+using Protocol.SAndC;
 using System.Text;
+using System.Text.Json;
 
 namespace AOIServer.Net
 {
@@ -27,6 +28,10 @@ namespace AOIServer.Net
             var packet = new Packet(protocol, JsonSerializer.Serialize(packetData));
 
             return packet;
+        }
+        public static Packet MakePacket<T>(SCProtocol protocol, T packetData)
+        {
+            return MakePacket((ushort)protocol, packetData);
         }
     }
 }

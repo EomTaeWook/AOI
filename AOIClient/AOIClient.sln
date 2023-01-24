@@ -5,7 +5,11 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOIClient", "AOIClient.csproj", "{E47C5F9B-9498-4916-8745-086558D1718A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Protocol.CAndS", "..\Share\Protocol.CAndS\Protocol.CAndS.csproj", "{D061FB4E-295B-4452-961D-A43CB893E7DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Protocol.CAndS", "..\Share\Protocol.CAndS\Protocol.CAndS.csproj", "{D061FB4E-295B-4452-961D-A43CB893E7DF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Protocol.SAndC", "..\Share\Protocol.SAndC\Protocol.SAndC.csproj", "{8C2EBDC9-C4EF-4400-9FC8-486D92B70ED7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Share", "..\Share\Share\Share.csproj", "{BCCE8D42-EC52-4EA5-969F-20440DC8A173}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{D061FB4E-295B-4452-961D-A43CB893E7DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D061FB4E-295B-4452-961D-A43CB893E7DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D061FB4E-295B-4452-961D-A43CB893E7DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C2EBDC9-C4EF-4400-9FC8-486D92B70ED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C2EBDC9-C4EF-4400-9FC8-486D92B70ED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C2EBDC9-C4EF-4400-9FC8-486D92B70ED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C2EBDC9-C4EF-4400-9FC8-486D92B70ED7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCCE8D42-EC52-4EA5-969F-20440DC8A173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCCE8D42-EC52-4EA5-969F-20440DC8A173}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCCE8D42-EC52-4EA5-969F-20440DC8A173}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCCE8D42-EC52-4EA5-969F-20440DC8A173}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

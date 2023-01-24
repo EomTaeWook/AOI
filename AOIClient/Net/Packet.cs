@@ -1,4 +1,5 @@
 ﻿using Kosher.Sockets.Interface;
+using Protocol.CAndS;
 using System.Text;
 using System.Text.Json;
 
@@ -27,6 +28,10 @@ namespace AOIClient.Net
             var packet = new Packet(protocol, JsonSerializer.Serialize(packetData));
 
             return packet;
+        }
+        public static Packet MakePacket<T>(CSProtocol protocol, T packetData)
+        {
+            return MakePacket((ushort)protocol, packetData);
         }
     }
 }

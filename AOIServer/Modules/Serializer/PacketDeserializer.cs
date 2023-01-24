@@ -1,9 +1,7 @@
 ﻿using AOIServer.Modules.Handler;
-using Kosher.Collections;
 using Kosher.Log;
 using Kosher.Sockets;
 using Kosher.Sockets.Interface;
-using Protocol.SAndC;
 using System.Text;
 
 namespace AOIServer.Modules.Serializer
@@ -12,8 +10,8 @@ namespace AOIServer.Modules.Serializer
     {
         private const int ProtocolSize = sizeof(ushort);
 
-        private SAndCProtocolHandler _aoiHandler;
-        public PacketDeserializer(SAndCProtocolHandler aoiHandler)
+        private CSProtocolHandler _aoiHandler;
+        public PacketDeserializer(CSProtocolHandler aoiHandler)
         {
             _aoiHandler = aoiHandler;
         }
@@ -36,7 +34,7 @@ namespace AOIServer.Modules.Serializer
             var bytes = buffer.Read(length);
             var protocol = BitConverter.ToInt16(bytes);
             var body = Encoding.UTF8.GetString(bytes, ProtocolSize, bytes.Length - ProtocolSize);
-            if (SAndCProtocolHandler.CheckProtocol(protocol) == false)
+            if (CSProtocolHandler.CheckProtocol(protocol) == false)
             {
                 LogHelper.Error($"[Server]protocol invalid - {protocol}");
                 buffer.Clear();

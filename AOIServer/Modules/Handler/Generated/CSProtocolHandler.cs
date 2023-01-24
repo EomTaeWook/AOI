@@ -2,17 +2,18 @@
 
 namespace AOIServer.Modules.Handler
 {
-    public interface ISAndCProtocolHandler
+    public interface ICSProtocolHandler
     {
         public T DeserializeBody<T>(string body);
     }
-    public partial class SAndCProtocolHandler : ISAndCProtocolHandler
+    public partial class CSProtocolHandler : ICSProtocolHandler
     {
-        private static Action<SAndCProtocolHandler, string>[] _handlers;
+        private static Action<CSProtocolHandler, string>[] _handlers;
         public static void Init()
         {
-            _handlers = new Action<SAndCProtocolHandler, string>[1];
-            _handlers[0] = (t, body) => t.ProcessMove(body);
+            _handlers = new Action<CSProtocolHandler, string>[2];
+            _handlers[0] = (t, body) => t.ProcessLogin(body);
+            _handlers[1] = (t, body) => t.ProcessMove(body);
         }
         public static bool CheckProtocol(int protocol)
         {
@@ -26,6 +27,16 @@ namespace AOIServer.Modules.Handler
         {
             _handlers[protocol](this, body);
         }
+        protected void ProcessLogin(string body)
+        {
+            if(body == null)
+            {
+                LogHelper.Error("body is null");
+                return;
+            }
+            var packet = DeserializeBody<Protocol.CAndS.Login>(body);
+            Process(packet);
+        }
         protected void ProcessMove(string body)
         {
             if(body == null)
@@ -33,7 +44,7 @@ namespace AOIServer.Modules.Handler
                 LogHelper.Error("body is null");
                 return;
             }
-            var packet = DeserializeBody<Protocol.SAndC.LoginResponse>(body);
+            var packet = DeserializeBody<Protocol.CAndS.Move>(body);
             Process(packet);
         }
     }

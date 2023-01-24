@@ -1,21 +1,21 @@
 {
   "Protocols": [
     {
-      "Namespace": "AOIServer.Modules.Handler",
-      "BodyType": "string",
-      "ProtocolName": "CAndSProtocol",
-      "ReadAssemblyPath": "..\\Protocol.CAndS\\bin\\Debug\\net7.0\\Protocol.CAndS.dll",
-      "GeneratedPaths": [
-        "..\\..\\AOIServer\\Modules\\Handler\\Generated\\"
-      ]
-    },
-    {
       "Namespace": "AOIClient.Modules.Handler",
       "BodyType": "string",
-      "ProtocolName": "SAndCProtocol",
+      "ProtocolName": "SCProtocol",
       "ReadAssemblyPath": "..\\Protocol.SAndC\\bin\\Debug\\net7.0\\Protocol.SAndC.dll",
       "GeneratedPaths": [
         "..\\..\\AOIClient\\Modules\\Handler\\Generated\\"
+      ]
+    },
+    {
+      "Namespace": "AOIServer.Modules.Handler",
+      "BodyType": "string",
+      "ProtocolName": "CSProtocol",
+      "ReadAssemblyPath": "..\\Protocol.CAndS\\bin\\Debug\\net7.0\\Protocol.CAndS.dll",
+      "GeneratedPaths": [
+        "..\\..\\AOIServer\\Modules\\Handler\\Generated\\"
       ]
     }
   ],

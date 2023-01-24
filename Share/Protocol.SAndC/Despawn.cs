@@ -1,8 +1,8 @@
 ﻿using Share;
 
-namespace Protocol.CAndS
+namespace Protocol.SAndC
 {
-    public class Login
+    public class Despawn
     {
         public Player Player { get; set; }
     }

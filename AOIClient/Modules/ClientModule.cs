@@ -1,4 +1,5 @@
-﻿using AOIClient.Modules.Serializer;
+﻿using AOIClient.Modules.Handler;
+using AOIClient.Modules.Serializer;
 using Kosher.Framework;
 using Kosher.Log;
 using Kosher.Sockets;
@@ -10,7 +11,6 @@ namespace AOIClient.Modules
     {
         public AOIClient(SessionCreator sessionCreator) : base(sessionCreator)
         {
-
         }
 
         protected override void OnConnected(Session session)
@@ -41,23 +41,30 @@ namespace AOIClient.Modules
             IsConnected = true;
             try
             {
-                _client.Connect("127.0.0.1", 31000);
+                _client.Connect("127.0.0.1", 10000);
             }
             catch(Exception ex)
             {
                 LogHelper.Error(ex);
                 IsConnected = false;
             }
-            
         }
 
         private Tuple<IPacketSerializer, IPacketDeserializer, ICollection<ISessionComponent>> MakeSerializersFunc()
         {
+            SCProtocolHandler handler = new SCProtocolHandler();
             return Tuple.Create<IPacketSerializer, IPacketDeserializer, ICollection<ISessionComponent>>(
                 new PacketSerializer(),
-                new PacketDeserializer(),
-                new List<ISessionComponent>() { }
-                );
+                new PacketDeserializer(handler),
+                new List<ISessionComponent>() 
+                {
+                    handler 
+                });
+        }
+
+        public void Send(IPacket packet)
+        {
+            _client.Send(packet);
         }
     }
 

@@ -1,9 +1,12 @@
 ﻿namespace Protocol.SAndC
 {
-    public enum SAndCProtocol : ushort
+    public enum SCProtocol : ushort
     {
-        LoginResponse,
-        
+        ConnectResponse,
+        MoveResponse,
+        Spawn,
+        Despawn,
+
         Max
     }
 }

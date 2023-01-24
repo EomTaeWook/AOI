@@ -1,6 +1,6 @@
 ﻿namespace Protocol.CAndS
 {
-    public enum CAndSProtocol : ushort
+    public enum CSProtocol : ushort
     {
         Login,
         Move,

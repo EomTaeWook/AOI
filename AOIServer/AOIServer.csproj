@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Share\Protocol.CAndS\Protocol.CAndS.csproj" />
     <ProjectReference Include="..\Share\Protocol.SAndC\Protocol.SAndC.csproj" />
+    <ProjectReference Include="..\Share\Share\Share.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,13 +18,13 @@
       <HintPath>..\..\ProjectBattleArena\Server\ServerDll\CLISystem.dll</HintPath>
     </Reference>
     <Reference Include="Kosher">
-      <HintPath>..\..\ProjectBattleArena\Server\ServerDll\Kosher.dll</HintPath>
+      <HintPath>..\ShareDll\Kosher.dll</HintPath>
     </Reference>
     <Reference Include="Kosher.Extensions">
-      <HintPath>..\..\ProjectBattleArena\Server\ServerDll\Kosher.Extensions.dll</HintPath>
+      <HintPath>..\ShareDll\Kosher.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Kosher.Sockets">
-      <HintPath>..\..\ProjectBattleArena\Server\ServerDll\Kosher.Sockets.dll</HintPath>
+      <HintPath>..\ShareDll\Kosher.Sockets.dll</HintPath>
     </Reference>
   </ItemGroup>
 

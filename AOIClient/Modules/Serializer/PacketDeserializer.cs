@@ -1,4 +1,5 @@
-﻿using Kosher.Log;
+﻿using AOIClient.Modules.Handler;
+using Kosher.Log;
 using Kosher.Sockets;
 using Kosher.Sockets.Interface;
 using System.Text;
@@ -9,6 +10,11 @@ namespace AOIClient.Modules.Serializer
     {
         private const int ProtocolSize = sizeof(ushort);
         public const int LegnthSize = sizeof(int);
+        readonly SCProtocolHandler _handler;
+        public PacketDeserializer(SCProtocolHandler handler)
+        {
+            _handler = handler;
+        }
         public bool IsTakedCompletePacket(NetworkBuffer buffer)
         {
             if (buffer.Count < LegnthSize)
@@ -28,13 +34,13 @@ namespace AOIClient.Modules.Serializer
             var protocol = BitConverter.ToInt16(bytes);
             var body = Encoding.UTF8.GetString(bytes, ProtocolSize, bytes.Length - ProtocolSize);
 
-            //if (SAndCProtocolHandler.CheckProtocol(protocol) == false)
-            //{
-            //    LogHelper.Error($"[Server]protocol invalid - {protocol}");
-            //    buffer.Clear();
-            //    return;
-            //}
-            //_aoiHandler.Process(protocol, body);
+            if (SCProtocolHandler.CheckProtocol(protocol) == false)
+            {
+                LogHelper.Error($"[Server]protocol invalid - {protocol}");
+                buffer.Clear();
+                return;
+            }
+            _handler.Process(protocol, body);
         }
     }
 }
