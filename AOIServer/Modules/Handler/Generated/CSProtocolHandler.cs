@@ -2,11 +2,7 @@
 
 namespace AOIServer.Modules.Handler
 {
-    public interface ICSProtocolHandler
-    {
-        public T DeserializeBody<T>(string body);
-    }
-    public partial class CSProtocolHandler : ICSProtocolHandler
+    public partial class CSProtocolHandler
     {
         private static Action<CSProtocolHandler, string>[] _handlers;
         public static void Init()
@@ -46,6 +42,10 @@ namespace AOIServer.Modules.Handler
             }
             var packet = DeserializeBody<Protocol.CAndS.Move>(body);
             Process(packet);
+        }
+        public T DeserializeBody<T>(string body)
+        {
+            return System.Text.Json.JsonSerializer.Deserialize<T>(body);
         }
     }
 }

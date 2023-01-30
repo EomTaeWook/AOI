@@ -13,10 +13,6 @@ namespace AOIServer.Modules.Handler
     {
         private User User { get; set; }
         public Session Session { get; private set; }
-        public T DeserializeBody<T>(string body)
-        {
-            return JsonSerializer.Deserialize<T>(body);
-        }
         
         public void Process(Move packet)
         {

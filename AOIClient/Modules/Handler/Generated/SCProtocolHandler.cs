@@ -2,11 +2,7 @@
 
 namespace AOIClient.Modules.Handler
 {
-    public interface ISCProtocolHandler
-    {
-        public T DeserializeBody<T>(string body);
-    }
-    public partial class SCProtocolHandler : ISCProtocolHandler
+    public partial class SCProtocolHandler
     {
         private static Action<SCProtocolHandler, string>[] _handlers;
         public static void Init()
@@ -68,6 +64,10 @@ namespace AOIClient.Modules.Handler
             }
             var packet = DeserializeBody<Protocol.SAndC.Despawn>(body);
             Process(packet);
+        }
+        public T DeserializeBody<T>(string body)
+        {
+            return System.Text.Json.JsonSerializer.Deserialize<T>(body);
         }
     }
 }

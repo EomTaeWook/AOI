@@ -14,9 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="CLISystem">
-      <HintPath>..\..\ProjectBattleArena\Server\ServerDll\CLISystem.dll</HintPath>
-    </Reference>
     <Reference Include="Kosher">
       <HintPath>..\ShareDll\Kosher.dll</HintPath>
     </Reference>

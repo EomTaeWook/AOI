@@ -24,5 +24,6 @@
     "HandleClassFormat": null,
     "RegistCabllackFormat": null,
     "DeserializePacketFormat": null
-  }
+  },
+  "UsingNamespace": [ "using Kosher.Log;" ]
 }
