@@ -3,6 +3,7 @@ using Kosher.Framework;
 using Kosher.Log;
 using Protocol.SAndC;
 using Share;
+using System.Numerics;
 
 namespace AOIServer.Internal
 {
@@ -62,6 +63,10 @@ namespace AOIServer.Internal
                 var players = zone.GetPlayerByCellIndex(item);
                 foreach(var player in players)
                 {
+                    if(player == user)
+                    {
+                        continue;
+                    }
                     if(prevAroundUsers.Contains(player) == false)
                     {
                         added.Add(player);
@@ -81,11 +86,10 @@ namespace AOIServer.Internal
 
             foreach(var item in added)
             {
-                user.Session.Send(Packet.MakePacket(SCProtocol.Spawn,
-                    new Spawn()
-                    {
-                        Player = item.Player
-                    }));
+                if (item == user)
+                {
+                    continue;
+                }
 
                 item.Session.Send(Packet.MakePacket(SCProtocol.Spawn,
                     new Spawn()
@@ -96,11 +100,10 @@ namespace AOIServer.Internal
 
             foreach (var item in removed)
             {
-                user.Session.Send(Packet.MakePacket(SCProtocol.Despawn,
-                    new Despawn()
-                    {
-                        Player = item.Player
-                    }));
+                if (item == user)
+                {
+                    continue;
+                }
 
                 item.Session.Send(Packet.MakePacket(SCProtocol.Despawn,
                     new Despawn()

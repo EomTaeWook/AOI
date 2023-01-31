@@ -27,10 +27,18 @@ namespace AOIClient.Modules
     internal class ClientModule : Singleton<ClientModule>
     {
         readonly AOIClient _client;
+        private List<AOIClient> _clients = new List<AOIClient>();
         public bool IsConnected = false;
         public ClientModule()
         {
             _client = new AOIClient(new SessionCreator(MakeSerializersFunc));
+            
+        }
+        public void AddNpc()
+        {
+            var npc = new AOIClient(new SessionCreator(MakeSerializersFunc));
+            npc.Connect("127.0.0.1", 10000);
+            _clients.Add(npc);
         }
         public void Connect()
         {

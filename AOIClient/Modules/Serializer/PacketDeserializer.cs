@@ -15,29 +15,28 @@ namespace AOIClient.Modules.Serializer
         {
             _handler = handler;
         }
-        public bool IsTakedCompletePacket(NetworkBuffer buffer)
+        public bool IsTakedCompletePacket(BinaryReader buffer)
         {
-            if (buffer.Count < LegnthSize)
+            if (buffer.BaseStream.Length < LegnthSize)
             {
                 return false;
             }
-            var packetSizeBytes = buffer.Peek(LegnthSize);
-            var length = BitConverter.ToInt32(packetSizeBytes);
-            return buffer.Count >= length;
+            var packetSizeBytes = buffer.ReadInt32();
+            buffer.BaseStream.Seek(-LegnthSize, SeekOrigin.Current);
+            return buffer.BaseStream.Length >= packetSizeBytes;
         }
 
-        public void Deserialize(NetworkBuffer buffer)
+        public void Deserialize(BinaryReader buffer)
         {
-            var packetSizeBytes = buffer.Read(LegnthSize);
-            var length = BitConverter.ToInt32(packetSizeBytes);
-            var bytes = buffer.Read(length);
+            var packetSizeBytes = buffer.ReadInt32();
+            var bytes = buffer.ReadBytes(packetSizeBytes);
             var protocol = BitConverter.ToInt16(bytes);
             var body = Encoding.UTF8.GetString(bytes, ProtocolSize, bytes.Length - ProtocolSize);
 
             if (SCProtocolHandler.CheckProtocol(protocol) == false)
             {
                 LogHelper.Error($"[Server]protocol invalid - {protocol}");
-                buffer.Clear();
+                buffer.BaseStream.Flush();
                 return;
             }
             _handler.Process(protocol, body);

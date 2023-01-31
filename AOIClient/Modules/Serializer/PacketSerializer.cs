@@ -7,7 +7,7 @@ namespace AOIClient.Modules.Serializer
 {
     internal class PacketSerializer : IPacketSerializer
     {
-        public Vector<byte> MakeSendBuffer(IPacket packet)
+        public ArraySegment<byte> MakeSendBuffer(IPacket packet)
         {
             var sendPacket = packet as Packet;
 
@@ -21,7 +21,7 @@ namespace AOIClient.Modules.Serializer
 
             buffer.AddRange(sendPacket.Body);
             LogHelper.Debug($"send : {sendPacket.Protocol}");
-            return buffer;
+            return buffer.ToArray();
         }
     }
 }

@@ -42,9 +42,5 @@ namespace AOIClient.Modules.Handler
 
             //GameManager.Instance.EnterMyPlayer();
         }
-        public T DeserializeBody<T>(string body)
-        {
-            return JsonSerializer.Deserialize<T>(body);
-        }
     }
 }

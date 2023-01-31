@@ -36,6 +36,7 @@ namespace AOIServer.Modules.Handler
         {
             this.User = new User(packet.Player, Session);
             GameManager.Instance.EnterGame(User);
+            GameManager.Instance.UpdateAroundPlayer(User);
         }
         public void SetSession(Session session)
         {
@@ -44,6 +45,20 @@ namespace AOIServer.Modules.Handler
 
         public void Dispose()
         {
+            if(User == null)
+            {
+                return;
+            }
+            var packet = Packet.MakePacket<Despawn>(SCProtocol.Despawn, new Despawn()
+            {
+                Player = User.Player
+            });
+
+            foreach(var item in User.AroundPlayers)
+            {
+                item.Session.Send(packet);
+                item.AroundPlayers.Remove(User);
+            }
             GameManager.Instance.LeaveGame(User);
         }
     }

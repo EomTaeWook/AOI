@@ -8,6 +8,7 @@ namespace AOIServer.Internal
         public int Index { get; private set; }
 
         private readonly HashSet<User> _players = new();
+
         private readonly Dictionary<int, HashSet<User>> _cellUserDatas = new();
         private readonly int _cellSize;
         private readonly int _minY;
@@ -78,6 +79,7 @@ namespace AOIServer.Internal
         }
         public void RemoveUser(User client)
         {
+            LeaveCell(client);
             _players.Remove(client);
         }
         public void AllUserBroadcast(IPacket packet)

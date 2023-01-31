@@ -32,13 +32,13 @@ namespace AOIClient.Internal
         {
             UserPlayer = player;
         }
-        public void Enter(Player player)
-        {
-            Players.Add(player);
-        }
-        public void Leave(Player player)
-        {
-            Players.Remove(player);
-        }
+        //public void Enter(Player player)
+        //{
+        //    Players..Add(player);
+        //}
+        //public void Leave(Player player)
+        //{
+        //    Players.Remove(player);
+        //}
     }
 }

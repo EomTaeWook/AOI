@@ -19,6 +19,12 @@ namespace AOIClient
             Init();
             this.KeyPreview = true;
             this.Paint += Form1_Paint;
+            this.btnAdd.Click += BtnAdd_Click;
+        }
+
+        private void BtnAdd_Click(object sender, EventArgs e)
+        {
+            ClientModule.Instance.AddNpc();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)

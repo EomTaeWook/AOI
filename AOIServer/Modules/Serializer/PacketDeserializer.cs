@@ -23,7 +23,7 @@ namespace AOIServer.Modules.Serializer
                 return false;
             }
             var packetSizeBytes = buffer.ReadInt32();
-            buffer.BaseStream.Seek(0, SeekOrigin.Begin);
+            buffer.BaseStream.Seek(-LegnthSize, SeekOrigin.Current);
             return buffer.BaseStream.Length >= packetSizeBytes;
         }
 
