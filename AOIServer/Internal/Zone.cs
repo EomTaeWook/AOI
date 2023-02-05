@@ -74,12 +74,12 @@ namespace AOIServer.Internal
         public void AddUser(User client)
         {
             _players.Add(client);
-            AddCell(client.Player.CellPos, client);
+            //AddCell(client.Player.CellPos, client);
 
         }
         public void RemoveUser(User client)
         {
-            LeaveCell(client);
+            //LeaveCell(client);
             _players.Remove(client);
         }
         public void AllUserBroadcast(IPacket packet)

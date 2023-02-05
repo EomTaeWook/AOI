@@ -2,16 +2,28 @@ using AOIClient.Internal;
 using AOIClient.Modules;
 using AOIClient.Modules.Handler;
 using AOIClient.Net;
+using Kosher.Coroutine;
 using Protocol.CAndS;
+using System.Collections;
 
 namespace AOIClient
 {
     public partial class Form1 : Form
     {
+        private CoroutineWorker _coroutineWorker = new CoroutineWorker();
         public Form1()
         {
             InitializeComponent();
             this.Load += Form1_Load;
+            _coroutineWorker.Start(UpdateUI());
+            var task = Task.Run(async () =>
+            {
+                while(true)
+                {
+                    await Task.Delay(33);
+                    _coroutineWorker.WorksUpdate(33);
+                }
+            });
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -45,9 +57,18 @@ namespace AOIClient
             PlayerPaint(e.Graphics);
             OtherPlayerPaint(e.Graphics);
         }
+        public IEnumerator UpdateUI()
+        {
+            while(true)
+            {
+                this.BeginInvoke(RefreshUI);
+                yield return null;
+            }
+        }
         public void RefreshUI()
         {
-            this.Refresh();
+            this.Invalidate();
+            this.Update();
         }
         private void OtherPlayerPaint(Graphics graphics)
         {

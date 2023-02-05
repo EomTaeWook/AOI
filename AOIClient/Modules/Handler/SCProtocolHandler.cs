@@ -38,7 +38,7 @@ namespace AOIClient.Modules.Handler
         }
         public void Process(MoveResponse body)
         {
-            
+            GameManager.Instance.UserPlayer.CellPos += new Vector2Int(body.X, body.Y);
 
             //GameManager.Instance.EnterMyPlayer();
         }

@@ -19,12 +19,23 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Kosher\Kosher.Extensions\Kosher.Extensions.csproj" />
     <ProjectReference Include="..\..\Kosher\Kosher.Sockets\Kosher.Sockets.csproj" />
     <ProjectReference Include="..\..\Kosher\Kosher\Kosher.csproj" />
     <ProjectReference Include="..\Share\Protocol.CAndS\Protocol.CAndS.csproj" />
     <ProjectReference Include="..\Share\Protocol.SAndC\Protocol.SAndC.csproj" />
     <ProjectReference Include="..\Share\Share\Share.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Kosher">
+      <HintPath>..\ShareDll\Kosher.dll</HintPath>
+    </Reference>
+    <Reference Include="Kosher.Extensions">
+      <HintPath>..\ShareDll\Kosher.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Kosher.Sockets">
+      <HintPath>..\ShareDll\Kosher.Sockets.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
