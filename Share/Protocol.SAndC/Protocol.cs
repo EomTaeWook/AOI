@@ -2,7 +2,7 @@
 {
     public enum SCProtocol : ushort
     {
-        ConnectResponse,
+        LoginResponse,
         MoveResponse,
         Spawn,
         Despawn,

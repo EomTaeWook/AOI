@@ -34,9 +34,38 @@ namespace AOIServer.Modules.Handler
         }
         public void Process(Login packet)
         {
-            this.User = new User(packet.Player, Session);
+            Player player;
+            if (packet.IsNpc == true)
+            {
+                player = new Player()
+                {
+                    CellPos = new Vector2Int(250, 70),
+                    Nickname = $"Player{Session.Id}",
+                };
+            }
+            else
+            {
+                player = new Player()
+                {
+                    CellPos = new Vector2Int(150, 70),
+                    Nickname = $"Player{Session.Id}",
+                };
+            }
+            
+            this.User = new User(player, Session);
+
+
+            Session.Send(Packet.MakePacket(SCProtocol.LoginResponse,
+                new LoginResponse()
+                {
+                    IsNpc = packet.IsNpc,
+                    Player = player
+                }));
+
             GameManager.Instance.EnterGame(User);
             GameManager.Instance.UpdateAroundPlayer(User);
+
+            
         }
         public void SetSession(Session session)
         {

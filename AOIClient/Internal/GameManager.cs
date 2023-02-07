@@ -19,13 +19,9 @@ namespace AOIClient.Internal
                 MaxY = 5
             };
         }
+        
         public void SetUserPlayer(Player player)
         {
-            var login = new Login()
-            {
-                Player = player,
-            };
-            ClientModule.Instance.Send(Packet.MakePacket(CSProtocol.Login, login));
             EnterMyPlayer(player);
         }
         public void EnterMyPlayer(Player player)

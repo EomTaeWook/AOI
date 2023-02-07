@@ -43,7 +43,7 @@ namespace AOIServer.Modules.Handler
             var packet = DeserializeBody<Protocol.CAndS.Move>(body);
             Process(packet);
         }
-        public T DeserializeBody<T>(string body)
+        protected T DeserializeBody<T>(string body)
         {
             return System.Text.Json.JsonSerializer.Deserialize<T>(body);
         }

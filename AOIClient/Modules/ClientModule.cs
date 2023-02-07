@@ -1,9 +1,11 @@
 ﻿using AOIClient.Modules.Handler;
 using AOIClient.Modules.Serializer;
+using AOIClient.Net;
 using Kosher.Framework;
 using Kosher.Log;
 using Kosher.Sockets;
 using Kosher.Sockets.Interface;
+using Protocol.CAndS;
 
 namespace AOIClient.Modules
 {
@@ -29,6 +31,8 @@ namespace AOIClient.Modules
         readonly AOIClient _client;
         private List<AOIClient> _clients = new List<AOIClient>();
         public bool IsConnected = false;
+
+        int index = 0;
         public ClientModule()
         {
             _client = new AOIClient(new SessionCreator(MakeSerializersFunc));
@@ -37,8 +41,19 @@ namespace AOIClient.Modules
         public void AddNpc()
         {
             var npc = new AOIClient(new SessionCreator(MakeSerializersFunc));
-            npc.Connect("127.0.0.1", 10000);
-            _clients.Add(npc);
+            try
+            {
+                npc.Connect("127.0.0.1", 10000);
+                _clients.Add(npc);
+                npc.Send(Packet.MakePacket<Login>(CSProtocol.Login, new Login()
+                {
+                    IsNpc = true,
+                }));
+            }
+            catch(Exception ex)
+            {
+                LogHelper.Error(ex);
+            }
         }
         public void Connect()
         {
@@ -50,6 +65,10 @@ namespace AOIClient.Modules
             try
             {
                 _client.Connect("127.0.0.1", 10000);
+
+                _client.Send(Packet.MakePacket<Login>(CSProtocol.Login, new Login()
+                {
+                }));
             }
             catch(Exception ex)
             {

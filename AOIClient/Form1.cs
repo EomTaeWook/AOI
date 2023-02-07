@@ -5,11 +5,22 @@ using AOIClient.Net;
 using Kosher.Coroutine;
 using Protocol.CAndS;
 using System.Collections;
+using System.Windows.Forms;
 
 namespace AOIClient
 {
     public partial class Form1 : Form
     {
+        //protected override CreateParmas CreateParams
+        //{
+        //    get
+        //    {
+        //        CreateParams cp = base.CreateParams;
+        //        cp.ExStyle != 0x02000000;
+        //        return cp;
+        //    }
+        //}
+
         private CoroutineWorker _coroutineWorker = new CoroutineWorker();
         public Form1()
         {
@@ -24,6 +35,9 @@ namespace AOIClient
                     _coroutineWorker.WorksUpdate(33);
                 }
             });
+
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
+            this.UpdateStyles();
         }
 
         private void Form1_Load(object sender, EventArgs e)

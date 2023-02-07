@@ -19,22 +19,31 @@ namespace AOIClient.Modules.Handler
         {
             Session = session;
         }
-        public void Process(ConnectResponse body)
+        public void Process(LoginResponse body)
         {
-            var player = new Player()
+            if (body.IsNpc)
             {
-                Nickname = body.PlyerName,
-                CellPos = new Vector2Int(body.X, body.Y)
-            };
-            GameManager.Instance.SetUserPlayer(player);
+                //GameManager.Instance.Players.Add(body.Player);
+            }
+            else
+            {
+                GameManager.Instance.SetUserPlayer(body.Player);
+            }
+
         }
         public void Process(Spawn body)
         {
-            GameManager.Instance.Players.Add(body.Player);
+            if(body.Player.Nickname != GameManager.Instance.UserPlayer.Nickname)
+            {
+                GameManager.Instance.Players.Add(body.Player);
+            }
         }
         public void Process(Despawn body)
         {
-            GameManager.Instance.Players.Remove(body.Player);
+            if (body.Player.Nickname != GameManager.Instance.UserPlayer.Nickname)
+            {
+                GameManager.Instance.Players.Remove(body.Player);
+            }
         }
         public void Process(MoveResponse body)
         {

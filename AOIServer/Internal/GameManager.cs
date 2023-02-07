@@ -12,7 +12,7 @@ namespace AOIServer.Internal
         private readonly Map _map;
         public GameManager()
         {
-            _map = new Map(5, 5);
+            _map = new Map(6, 6);
         }
         public void EnterGame(User user)
         {
@@ -29,6 +29,7 @@ namespace AOIServer.Internal
                 return;
             }
             zone.AddUser(user);
+            zone.AddCell(user.Player.CellPos, user);
         }
         public void LeaveGame(User user)
         {
@@ -45,6 +46,7 @@ namespace AOIServer.Internal
                 return;
             }
             zone.RemoveUser(user);
+            zone.LeaveCell(user);
         }
         public void UpdateAroundPlayer(User user)
         {
@@ -96,6 +98,14 @@ namespace AOIServer.Internal
                     {
                         Player = user.Player
                     }));
+
+                user.Session.Send(Packet.MakePacket(SCProtocol.Spawn,
+                    new Spawn()
+                    {
+                        Player = item.Player
+                    }));
+
+                user.AroundPlayers.Add(item);
             }
 
             foreach (var item in removed)
@@ -110,8 +120,14 @@ namespace AOIServer.Internal
                     {
                         Player = user.Player
                     }));
-            }
 
+                user.Session.Send(Packet.MakePacket(SCProtocol.Despawn,
+                    new Despawn()
+                    {
+                        Player = item.Player
+                    }));
+                user.AroundPlayers.Remove(item);
+            }            
         }
         public bool Move(User user, Vector2Int targetPosition)
         {
