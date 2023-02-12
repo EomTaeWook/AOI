@@ -106,6 +106,8 @@ namespace AOIServer.Internal
                     }));
 
                 user.AroundPlayers.Add(item);
+
+                item.AroundPlayers.Add(user);
             }
 
             foreach (var item in removed)
@@ -127,6 +129,8 @@ namespace AOIServer.Internal
                         Player = item.Player
                     }));
                 user.AroundPlayers.Remove(item);
+
+                item.AroundPlayers.Remove(user);
             }            
         }
         public bool Move(User user, Vector2Int targetPosition)

@@ -32,7 +32,6 @@ namespace AOIClient.Modules
         private List<AOIClient> _clients = new List<AOIClient>();
         public bool IsConnected = false;
 
-        int index = 0;
         public ClientModule()
         {
             _client = new AOIClient(new SessionCreator(MakeSerializersFunc));
