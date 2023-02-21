@@ -1,11 +1,9 @@
 using AOIClient.Internal;
 using AOIClient.Modules;
-using AOIClient.Modules.Handler;
 using AOIClient.Net;
 using Kosher.Coroutine;
 using Protocol.CAndS;
 using System.Collections;
-using System.Windows.Forms;
 
 namespace AOIClient
 {

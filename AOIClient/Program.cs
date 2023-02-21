@@ -22,7 +22,7 @@ namespace AOIClient
             LogBuilder.Configuration(LogConfigXmlReader.Load($"{AppContext.BaseDirectory}KosherLog.config"));
             LogBuilder.Build();
 
-            HandlerBinder<SCProtocolHandler>.Bind<SCProtocol>();
+            HandlerBinder<SCProtocolHandler>.Bind<SCProtocol, string>();
 
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
