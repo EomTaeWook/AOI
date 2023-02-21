@@ -1,6 +1,7 @@
 ﻿using AOIServer.Internal;
 using AOIServer.Net;
 using Kosher.Sockets;
+using Kosher.Sockets.Attribute;
 using Kosher.Sockets.Interface;
 using Protocol.CAndS;
 using Protocol.SAndC;
@@ -9,11 +10,12 @@ using System.Text.Json;
 
 namespace AOIServer.Modules.Handler
 {
-    public partial class CSProtocolHandler : ISessionComponent
+    public partial class CSProtocolHandler : IProtocolHandler<string>, ISessionComponent
     {
         private User User { get; set; }
         public Session Session { get; private set; }
-        
+
+        [ProtocolName("Move")]
         public void Process(Move packet)
         {
             var targetPosition = User.Player.CellPos + new Vector2Int(packet.X, packet.Y);
@@ -32,7 +34,7 @@ namespace AOIServer.Modules.Handler
             GameManager.Instance.UpdateAroundPlayer(User);
 
         }
-        public void Process(Login packet)
+        public void Login(Login packet)
         {
             Player player;
             if (packet.IsNpc == true)
@@ -51,9 +53,8 @@ namespace AOIServer.Modules.Handler
                     Nickname = $"Player{Session.Id}",
                 };
             }
-            
-            this.User = new User(player, Session);
 
+            this.User = new User(player, Session);
 
             Session.Send(Packet.MakePacket(SCProtocol.LoginResponse,
                 new LoginResponse()
@@ -65,7 +66,7 @@ namespace AOIServer.Modules.Handler
             GameManager.Instance.EnterGame(User);
             GameManager.Instance.UpdateAroundPlayer(User);
 
-            
+
         }
         public void SetSession(Session session)
         {
@@ -74,7 +75,7 @@ namespace AOIServer.Modules.Handler
 
         public void Dispose()
         {
-            if(User == null)
+            if (User == null)
             {
                 return;
             }
@@ -83,12 +84,17 @@ namespace AOIServer.Modules.Handler
                 Player = User.Player
             });
 
-            foreach(var item in User.AroundPlayers)
+            foreach (var item in User.AroundPlayers)
             {
                 item.Session.Send(packet);
                 item.AroundPlayers.Remove(User);
             }
             GameManager.Instance.LeaveGame(User);
+        }
+
+        public T DeserializeBody<T>(string body)
+        {
+            return JsonSerializer.Deserialize<T>(body);
         }
     }
 }

@@ -1,6 +1,9 @@
 using AOIClient.Modules;
+using AOIClient.Modules.Handler;
 using Kosher.Extensions.Log;
 using Kosher.Log;
+using Kosher.Sockets;
+using Protocol.SAndC;
 
 namespace AOIClient
 {
@@ -18,6 +21,8 @@ namespace AOIClient
 
             LogBuilder.Configuration(LogConfigXmlReader.Load($"{AppContext.BaseDirectory}KosherLog.config"));
             LogBuilder.Build();
+
+            HandlerBinder<SCProtocolHandler>.Bind<SCProtocol>();
 
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());

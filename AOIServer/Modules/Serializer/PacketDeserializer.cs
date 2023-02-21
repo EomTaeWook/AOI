@@ -1,6 +1,6 @@
 ﻿using AOIServer.Modules.Handler;
 using Kosher.Log;
-using Kosher.Sockets;
+using Kosher.Sockets.Extensions;
 using Kosher.Sockets.Interface;
 using System.Text;
 
@@ -33,7 +33,7 @@ namespace AOIServer.Modules.Serializer
             var bytes = buffer.ReadBytes(packetSizeBytes);
             var protocol = BitConverter.ToInt16(bytes);
             var body = Encoding.UTF8.GetString(bytes, ProtocolSize, bytes.Length - ProtocolSize);
-            if (CSProtocolHandler.CheckProtocol(protocol) == false)
+            if (_aoiHandler.CheckProtocol(protocol) == false)
             {
                 LogHelper.Error($"[Server]protocol invalid - {protocol}");
                 buffer.BaseStream.Flush();

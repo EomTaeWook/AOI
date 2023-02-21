@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\Handler\Generated\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Kosher\Kosher.Sockets\Kosher.Sockets.csproj" />
     <ProjectReference Include="..\..\Kosher\Kosher\Kosher.csproj" />
     <ProjectReference Include="..\Share\Protocol.CAndS\Protocol.CAndS.csproj" />

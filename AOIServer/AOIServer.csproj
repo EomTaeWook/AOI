@@ -22,18 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\Handler\Generated\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Kosher">
-      <HintPath>..\ShareDll\Kosher.dll</HintPath>
-    </Reference>
     <Reference Include="Kosher.Extensions">
       <HintPath>..\ShareDll\Kosher.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Kosher.Sockets">
-      <HintPath>..\ShareDll\Kosher.Sockets.dll</HintPath>
     </Reference>
   </ItemGroup>
 

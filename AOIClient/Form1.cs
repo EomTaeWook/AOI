@@ -164,7 +164,6 @@ namespace AOIClient
 
         private void Init()
         {
-            SCProtocolHandler.Init();
             ClientModule.Instance.Connect();
         }
         

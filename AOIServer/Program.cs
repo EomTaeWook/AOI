@@ -4,12 +4,22 @@ using AOIServer.Modules;
 using AOIServer.Modules.Handler;
 using Kosher.Extensions.Log;
 using Kosher.Log;
+using Kosher.Sockets;
+using Kosher.Sockets.Interface;
+using Protocol.CAndS;
+using Protocol.SAndC;
 
-var logConfigPath = $"{AppContext.BaseDirectory}/KosherLog.config";
+internal class Program
+{
+    private static void Main(string[] args)
+    {
+        var logConfigPath = $"{AppContext.BaseDirectory}/KosherLog.config";
 
-LogBuilder.Configuration(LogConfigXmlReader.Load(logConfigPath));
-LogBuilder.Build();
+        LogBuilder.Configuration(LogConfigXmlReader.Load(logConfigPath));
+        LogBuilder.Build();
 
-CSProtocolHandler.Init();
+        HandlerBinder<CSProtocolHandler>.Bind<CSProtocol>();
 
-AOIServerModule.Instance.Start();
+        AOIServerModule.Instance.Start();
+    }
+}

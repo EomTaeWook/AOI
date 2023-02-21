@@ -5,6 +5,7 @@ using Kosher.Framework;
 using Kosher.Log;
 using Kosher.Sockets;
 using Kosher.Sockets.Interface;
+using Protocol.CAndS;
 using Protocol.SAndC;
 
 namespace AOIServer.Modules
@@ -42,8 +43,6 @@ namespace AOIServer.Modules
         public AOIServerModule()
         {
             _aoiServer = new AOIServer(new SessionCreator(MakeSerializersFunc));
-
-            CSProtocolHandler.Init();
         }
         public void Start()
         {

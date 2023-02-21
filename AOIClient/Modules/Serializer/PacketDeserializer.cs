@@ -1,6 +1,6 @@
 ﻿using AOIClient.Modules.Handler;
 using Kosher.Log;
-using Kosher.Sockets;
+using Kosher.Sockets.Extensions;
 using Kosher.Sockets.Interface;
 using System.Text;
 
@@ -33,7 +33,7 @@ namespace AOIClient.Modules.Serializer
             var protocol = BitConverter.ToInt16(bytes);
             var body = Encoding.UTF8.GetString(bytes, ProtocolSize, bytes.Length - ProtocolSize);
 
-            if (SCProtocolHandler.CheckProtocol(protocol) == false)
+            if (_handler.CheckProtocol(protocol) == false)
             {
                 LogHelper.Error($"[Server]protocol invalid - {protocol}");
                 buffer.BaseStream.Flush();
