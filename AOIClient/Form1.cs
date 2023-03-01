@@ -89,7 +89,7 @@ namespace AOIClient
                 return;
             }
 
-            foreach(var item in GameManager.Instance.Players)
+            foreach(var item in GameManager.Instance.Players.Values)
             {
                 graphics.FillEllipse(new SolidBrush(Color.Green),
                 new Rectangle(item.CellPos.X - 10,

@@ -5,9 +5,7 @@ using AOIServer.Modules.Handler;
 using Kosher.Extensions.Log;
 using Kosher.Log;
 using Kosher.Sockets;
-using Kosher.Sockets.Interface;
 using Protocol.CAndS;
-using Protocol.SAndC;
 
 internal class Program
 {

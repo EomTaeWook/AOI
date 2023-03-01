@@ -3,6 +3,7 @@ using AOIClient.Net;
 using Kosher.Framework;
 using Protocol.CAndS;
 using Share;
+using System.Collections.Generic;
 
 namespace AOIClient.Internal
 {
@@ -10,7 +11,7 @@ namespace AOIClient.Internal
     {
         public Map Map { get; private set; }
         public Player UserPlayer;
-        public List<Player> Players { get; private set; } = new List<Player>();
+        public Dictionary<string, Player> Players { get; private set; } = new Dictionary<string, Player>();
         public GameManager()
         {
             Map = new Map()
@@ -18,6 +19,22 @@ namespace AOIClient.Internal
                 MaxX = 5,
                 MaxY = 5
             };
+        }
+        public bool RemovePlayer(Player palyer)
+        {
+            return Players.Remove(palyer.Nickname);
+        }
+        public bool AddPlayer(Player player)
+        {
+            return Players.TryAdd(player.Nickname, player);
+        }
+        public Player this[string key]
+        {
+            get 
+            {
+                Players.TryGetValue(key, out Player player);
+                return player;
+            }
         }
         
         public void SetUserPlayer(Player player)

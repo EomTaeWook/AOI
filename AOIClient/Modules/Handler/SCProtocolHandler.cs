@@ -1,4 +1,5 @@
 ﻿using AOIClient.Internal;
+using Kosher.Log;
 using Kosher.Sockets;
 using Kosher.Sockets.Attribute;
 using Kosher.Sockets.Interface;
@@ -38,7 +39,10 @@ namespace AOIClient.Modules.Handler
         {
             if(body.Player.Nickname != GameManager.Instance.UserPlayer.Nickname)
             {
-                GameManager.Instance.Players.Add(body.Player);
+                if(GameManager.Instance.AddPlayer(body.Player) == false)
+                {
+                    LogHelper.Error($"duplicated player player Id : {body.Player.Nickname}"); 
+                }
             }
         }
         [ProtocolName("Despawn")]
@@ -46,7 +50,7 @@ namespace AOIClient.Modules.Handler
         {
             if (body.Player.Nickname != GameManager.Instance.UserPlayer.Nickname)
             {
-                GameManager.Instance.Players.Remove(body.Player);
+                GameManager.Instance.RemovePlayer(body.Player);
             }
         }
         [ProtocolName("MoveResponse")]
