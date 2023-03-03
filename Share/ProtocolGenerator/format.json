@@ -1,6 +1,0 @@
-{
-  "HandleClassFormat": "    public partial class {0}\r\n    {{\r\n        private static Action\u003C{0}, {3}\u003E[] _handlers;\r\n        public static void Init()\r\n        {{\r\n            _handlers = new Action\u003C{0}, {3}\u003E[{1}];\r\n{2}        }}\r\n        public static bool CheckProtocol(int protocol)\r\n        {{\r\n            if(protocol \u003C 0 \u0026\u0026 protocol \u003E= _handlers.Length)\r\n            {{\r\n                return false;\r\n            }}\r\n            return true;\r\n        }}\r\n        public void Process(int protocol, {3} body)\r\n        {{\r\n            _handlers[protocol](this, body);\r\n        }}\r\n{4}{5}    }}",
-  "RegistCabllackFormat": "            _handlers[{0}] = (t, body) =\u003E t.Process{1}(body);\r\n",
-  "DeserializePacketFormat": "        protected void Process{0}({1} body)\r\n        {{\r\n            if(body == null)\r\n            {{\r\n                LogHelper.Error(\u0022body is null\u0022);\r\n                return;\r\n            }}\r\n            var packet = DeserializeBody\u003C{2}\u003E(body);\r\n            Process(packet);\r\n        }}\r\n",
-  "DeserializeBodyFunctionFormat": "        protected T DeserializeBody\u003CT\u003E({0} body)\r\n        {{\r\n            return System.Text.Json.JsonSerializer.Deserialize\u003CT\u003E(body);\r\n        }}\r\n"
-}

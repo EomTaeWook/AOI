@@ -53,6 +53,7 @@ namespace AOIServer.Internal
             var zone = _map.GetZone(_map.GetZoneIndex(user.Player.CellPos));
 
             var cellIndex = zone.GetCellIndex(user.Player.CellPos);
+
             var indexList = zone.GetAroundCellByIndex(cellIndex);
 
             var prevAroundUsers = new HashSet<User>(user.AroundPlayers);
