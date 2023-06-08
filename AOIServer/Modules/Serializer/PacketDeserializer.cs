@@ -1,7 +1,8 @@
 ﻿using AOIServer.Modules.Handler;
-using Kosher.Log;
-using Kosher.Sockets.Extensions;
-using Kosher.Sockets.Interface;
+using Dignus.Collections;
+using Dignus.Log;
+using Dignus.Sockets.Extensions;
+using Dignus.Sockets.Interface;
 using System.Text;
 
 namespace AOIServer.Modules.Serializer
@@ -16,27 +17,26 @@ namespace AOIServer.Modules.Serializer
             _aoiHandler = aoiHandler;
         }
         public const int LegnthSize = sizeof(int);
-        public bool IsTakedCompletePacket(BinaryReader buffer)
+        
+        public bool IsTakedCompletePacket(ArrayList<byte> buffer)
         {
-            if (buffer.BaseStream.Length < LegnthSize)
+            if (buffer.LongCount < LegnthSize)
             {
                 return false;
             }
-            var packetSizeBytes = buffer.ReadInt32();
-            buffer.BaseStream.Seek(-LegnthSize, SeekOrigin.Current);
-            return buffer.BaseStream.Length >= packetSizeBytes;
+            var packetSizeBytes = BitConverter.ToInt32(buffer.Peek(LegnthSize));
+            return (buffer.LongCount - LegnthSize) >= packetSizeBytes;
         }
 
-        public void Deserialize(BinaryReader buffer)
+        public void Deserialize(ArrayList<byte> buffer)
         {
-            var packetSizeBytes = buffer.ReadInt32();
-            var bytes = buffer.ReadBytes(packetSizeBytes);
+            var packetSizeBytes = BitConverter.ToInt32(buffer.Read(LegnthSize));
+            var bytes = buffer.Read(packetSizeBytes);
             var protocol = BitConverter.ToInt16(bytes);
             var body = Encoding.UTF8.GetString(bytes, ProtocolSize, bytes.Length - ProtocolSize);
             if (_aoiHandler.CheckProtocol(protocol) == false)
             {
                 LogHelper.Error($"[Server]protocol invalid - {protocol}");
-                buffer.BaseStream.Flush();
                 return;
             }
             _aoiHandler.Process(protocol, body);

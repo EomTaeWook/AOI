@@ -1,8 +1,9 @@
 ﻿using AOIServer.Internal;
 using AOIServer.Net;
-using Kosher.Sockets;
-using Kosher.Sockets.Attribute;
-using Kosher.Sockets.Interface;
+using Dignus.Sockets;
+using Dignus.Sockets.Attribute;
+using Dignus.Sockets.Extensions;
+using Dignus.Sockets.Interface;
 using Protocol.CAndS;
 using Protocol.SAndC;
 using Share;

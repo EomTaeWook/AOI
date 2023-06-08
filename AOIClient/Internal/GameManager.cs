@@ -1,9 +1,5 @@
-﻿using AOIClient.Modules;
-using AOIClient.Net;
-using Kosher.Framework;
-using Protocol.CAndS;
+﻿using Dignus.Framework;
 using Share;
-using System.Collections.Generic;
 
 namespace AOIClient.Internal
 {

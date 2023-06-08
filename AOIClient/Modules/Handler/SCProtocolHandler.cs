@@ -1,8 +1,8 @@
 ﻿using AOIClient.Internal;
-using Kosher.Log;
-using Kosher.Sockets;
-using Kosher.Sockets.Attribute;
-using Kosher.Sockets.Interface;
+using Dignus.Log;
+using Dignus.Sockets;
+using Dignus.Sockets.Attribute;
+using Dignus.Sockets.Interface;
 using Protocol.SAndC;
 using Share;
 using System.Text.Json;

@@ -1,7 +1,7 @@
 using AOIClient.Internal;
 using AOIClient.Modules;
 using AOIClient.Net;
-using Kosher.Coroutine;
+using Dignus.Coroutine;
 using Protocol.CAndS;
 using System.Collections;
 
@@ -19,18 +19,18 @@ namespace AOIClient
         //    }
         //}
 
-        private CoroutineWorker _coroutineWorker = new CoroutineWorker();
+        private CoroutineHandler _coroutineHandler = new CoroutineHandler();
         public Form1()
         {
             InitializeComponent();
             this.Load += Form1_Load;
-            _coroutineWorker.Start(UpdateUI());
+            _coroutineHandler.Start(UpdateUI());
             var task = Task.Run(async () =>
             {
                 while(true)
                 {
                     await Task.Delay(33);
-                    _coroutineWorker.WorksUpdate(33);
+                    _coroutineHandler.WorksUpdate(33);
                 }
             });
 

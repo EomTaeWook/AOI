@@ -1,7 +1,7 @@
 ﻿using AOIClient.Net;
-using Kosher.Collections;
-using Kosher.Log;
-using Kosher.Sockets.Interface;
+using Dignus.Collections;
+using Dignus.Log;
+using Dignus.Sockets.Interface;
 
 namespace AOIClient.Modules.Serializer
 {
@@ -13,7 +13,7 @@ namespace AOIClient.Modules.Serializer
 
             var packetSize = sendPacket.GetLength();
 
-            var buffer = new Vector<byte>();
+            var buffer = new ArrayList<byte>();
 
             buffer.AddRange(BitConverter.GetBytes(packetSize));
 

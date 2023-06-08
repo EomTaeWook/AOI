@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="KosherLog.config">
+    <None Update="DignusLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -21,14 +21,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Kosher">
-      <HintPath>..\ShareDll\Kosher.dll</HintPath>
+    <Reference Include="Dignus">
+      <HintPath>..\ShareDll\Dignus.dll</HintPath>
     </Reference>
-    <Reference Include="Kosher.Extensions">
-      <HintPath>..\ShareDll\Kosher.Extensions.dll</HintPath>
+    <Reference Include="Dignus.Extensions">
+      <HintPath>..\ShareDll\Dignus.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Kosher.Sockets">
-      <HintPath>..\ShareDll\Kosher.Sockets.dll</HintPath>
+    <Reference Include="Dignus.Sockets">
+      <HintPath>..\ShareDll\Dignus.Sockets.dll</HintPath>
     </Reference>
   </ItemGroup>
 

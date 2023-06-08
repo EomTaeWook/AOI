@@ -1,4 +1,4 @@
-﻿using Kosher.Sockets.Interface;
+﻿using Dignus.Sockets.Interface;
 using Protocol.SAndC;
 using System.Text;
 using System.Text.Json;

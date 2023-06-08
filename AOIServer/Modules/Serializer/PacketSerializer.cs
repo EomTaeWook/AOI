@@ -1,19 +1,19 @@
 ﻿using AOIServer.Net;
-using Kosher.Collections;
-using Kosher.Log;
-using Kosher.Sockets.Interface;
+using Dignus.Collections;
+using Dignus.Log;
+using Dignus.Sockets.Interface;
 
 namespace AOIServer.Modules.Serializer
 {
     internal class PacketSerializer : IPacketSerializer
     {
-        public Vector<byte> MakeSendBuffer(IPacket packet)
+        public ArrayList<byte> MakeSendBuffer(IPacket packet)
         {
             var sendPacket = packet as Packet;
 
             var packetSize = sendPacket.GetLength();
 
-            var buffer = new Vector<byte>();
+            var buffer = new ArrayList<byte>();
 
             buffer.AddRange(BitConverter.GetBytes(packetSize));
 
@@ -28,7 +28,7 @@ namespace AOIServer.Modules.Serializer
         {
             var sendPacket = packet as Packet;
             var packetSize = sendPacket.GetLength();
-            var buffer = new Vector<byte>();
+            var buffer = new ArrayList<byte>();
 
             buffer.AddRange(BitConverter.GetBytes(packetSize));
             buffer.AddRange(BitConverter.GetBytes((ushort)sendPacket.Protocol));

@@ -1,4 +1,4 @@
-﻿using Kosher.Sockets;
+﻿using Dignus.Sockets;
 using Share;
 
 namespace AOIServer.Internal

@@ -1,8 +1,7 @@
-using AOIClient.Modules;
 using AOIClient.Modules.Handler;
-using Kosher.Extensions.Log;
-using Kosher.Log;
-using Kosher.Sockets;
+using Dignus.Extensions.Log;
+using Dignus.Log;
+using Dignus.Sockets;
 using Protocol.SAndC;
 
 namespace AOIClient
@@ -19,10 +18,10 @@ namespace AOIClient
             // see https://aka.ms/applicationconfiguration.
 
 
-            LogBuilder.Configuration(LogConfigXmlReader.Load($"{AppContext.BaseDirectory}KosherLog.config"));
+            LogBuilder.Configuration(LogConfigXmlReader.Load($"{AppContext.BaseDirectory}DignusLog.config"));
             LogBuilder.Build();
 
-            HandlerBinder<SCProtocolHandler>.Bind<SCProtocol, string>();
+            HandlerBinder<SCProtocolHandler, string>.Bind<SCProtocol>();
 
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());

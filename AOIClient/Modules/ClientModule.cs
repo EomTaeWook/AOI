@@ -1,15 +1,15 @@
 ﻿using AOIClient.Modules.Handler;
 using AOIClient.Modules.Serializer;
 using AOIClient.Net;
-using Kosher.Framework;
-using Kosher.Log;
-using Kosher.Sockets;
-using Kosher.Sockets.Interface;
+using Dignus.Framework;
+using Dignus.Log;
+using Dignus.Sockets;
+using Dignus.Sockets.Interface;
 using Protocol.CAndS;
 
 namespace AOIClient.Modules
 {
-    internal class AOIClient : BaseClient
+    internal class AOIClient : ClientBase
     {
         public AOIClient(SessionCreator sessionCreator) : base(sessionCreator)
         {

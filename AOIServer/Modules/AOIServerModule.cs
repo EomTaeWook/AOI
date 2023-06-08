@@ -1,16 +1,13 @@
 ﻿using AOIServer.Modules.Handler;
 using AOIServer.Modules.Serializer;
-using AOIServer.Net;
-using Kosher.Framework;
-using Kosher.Log;
-using Kosher.Sockets;
-using Kosher.Sockets.Interface;
-using Protocol.CAndS;
-using Protocol.SAndC;
+using Dignus.Framework;
+using Dignus.Log;
+using Dignus.Sockets;
+using Dignus.Sockets.Interface;
 
 namespace AOIServer.Modules
 {
-    public class AOIServer : BaseServer
+    public class AOIServer : ServerBase
     {
         public AOIServer(SessionCreator sessionCreator) : base(sessionCreator)
         {

@@ -1,9 +1,8 @@
 ﻿using AOIServer.Net;
-using Kosher.Framework;
-using Kosher.Log;
+using Dignus.Framework;
+using Dignus.Log;
 using Protocol.SAndC;
 using Share;
-using System.Numerics;
 
 namespace AOIServer.Internal
 {
