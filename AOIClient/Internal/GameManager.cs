@@ -1,27 +1,39 @@
-﻿using Dignus.Framework;
+﻿using AOIClient.Net;
+using Dignus.Framework;
+using Dignus.Log;
+using Dignus.Sockets;
+using Protocol.CAndS;
 using Share;
+using static Dignus.Sockets.SessionCreator;
 
 namespace AOIClient.Internal
 {
     internal class GameManager : Singleton<GameManager>
     {
-        public Map Map { get; private set; }
         public Player UserPlayer;
+        public Map Map { get; private set; }
+        public const int CellSize = 20;
         public Dictionary<string, Player> Players { get; private set; } = new Dictionary<string, Player>();
+
+        private HashSet<Player> _npc = new HashSet<Player>();
         public GameManager()
         {
-            Map = new Map()
-            {
-                MaxX = 5,
-                MaxY = 5
-            };
+            Map = new Map(0, 10, 0, 10);
         }
         public bool RemovePlayer(Player palyer)
         {
+            if (UserPlayer == null)
+            {
+                return true;
+            }
             return Players.Remove(palyer.Nickname);
         }
         public bool AddPlayer(Player player)
         {
+            if(UserPlayer == null)
+            {
+                return true;
+            }
             return Players.TryAdd(player.Nickname, player);
         }
         public Player this[string key]
@@ -32,6 +44,10 @@ namespace AOIClient.Internal
                 return player;
             }
         }
+        public void AddNpc(Player npc)
+        {
+            _npc.Add(npc);
+        }
         
         public void SetUserPlayer(Player player)
         {
@@ -41,13 +57,6 @@ namespace AOIClient.Internal
         {
             UserPlayer = player;
         }
-        //public void Enter(Player player)
-        //{
-        //    Players..Add(player);
-        //}
-        //public void Leave(Player player)
-        //{
-        //    Players.Remove(player);
-        //}
+        
     }
 }

@@ -2,7 +2,6 @@
 using AOIServer.Net;
 using Dignus.Sockets;
 using Dignus.Sockets.Attribute;
-using Dignus.Sockets.Extensions;
 using Dignus.Sockets.Interface;
 using Protocol.CAndS;
 using Protocol.SAndC;
@@ -24,15 +23,26 @@ namespace AOIServer.Modules.Handler
             var result = GameManager.Instance.Move(User,
                 targetPosition);
 
-            Session.Send(Packet.MakePacket(SCProtocol.MoveResponse,
+            if(result == false)
+            {
+                Session.Send(Packet.MakePacket(SCProtocol.MoveResponse,
+                new MoveResponse()
+                {
+                    Ok = false
+                }));                
+            }
+            else
+            {
+                Session.Send(Packet.MakePacket(SCProtocol.MoveResponse,
                 new MoveResponse()
                 {
                     Ok = result,
                     X = packet.X,
                     Y = packet.Y
                 }));
-
-            GameManager.Instance.UpdateAroundPlayer(User);
+                GameManager.Instance.UpdateAroundPlayer(User);
+            }
+            
 
         }
         public void Login(Login packet)
@@ -40,18 +50,20 @@ namespace AOIServer.Modules.Handler
             Player player;
             if (packet.IsNpc == true)
             {
+                var x = Random.Shared.Next(0, GameManager.Instance.GetMap().GetMaxX());
+                var y = Random.Shared.Next(0, GameManager.Instance.GetMap().GetMaxY());
                 player = new Player()
                 {
-                    CellPos = new Vector2Int(250, 70),
-                    Nickname = $"Player{Session.Id}",
+                    CellPos = new Vector2Int(x, y),
+                    Nickname = packet.Nickname,
                 };
             }
             else
             {
                 player = new Player()
                 {
-                    CellPos = new Vector2Int(150, 70),
-                    Nickname = $"Player{Session.Id}",
+                    CellPos = new Vector2Int(0, 0),
+                    Nickname = packet.Nickname,
                 };
             }
 
@@ -65,9 +77,10 @@ namespace AOIServer.Modules.Handler
                 }));
 
             GameManager.Instance.EnterGame(User);
-            GameManager.Instance.UpdateAroundPlayer(User);
-
-
+            if (packet.IsNpc == false)
+            {
+                GameManager.Instance.UpdateAroundPlayer(User);
+            }
         }
         public void SetSession(Session session)
         {
@@ -79,16 +92,6 @@ namespace AOIServer.Modules.Handler
             if (User == null)
             {
                 return;
-            }
-            var packet = Packet.MakePacket<Despawn>(SCProtocol.Despawn, new Despawn()
-            {
-                Player = User.Player
-            });
-
-            foreach (var item in User.AroundPlayers)
-            {
-                item.Session.Send(packet);
-                item.AroundPlayers.Remove(User);
             }
             GameManager.Instance.LeaveGame(User);
         }

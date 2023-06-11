@@ -3,7 +3,9 @@ using AOIClient.Modules;
 using AOIClient.Net;
 using Dignus.Coroutine;
 using Protocol.CAndS;
+using Share;
 using System.Collections;
+using System.Drawing;
 
 namespace AOIClient
 {
@@ -18,7 +20,6 @@ namespace AOIClient
         //        return cp;
         //    }
         //}
-
         private CoroutineHandler _coroutineHandler = new CoroutineHandler();
         public Form1()
         {
@@ -27,7 +28,7 @@ namespace AOIClient
             _coroutineHandler.Start(UpdateUI());
             var task = Task.Run(async () =>
             {
-                while(true)
+                while (true)
                 {
                     await Task.Delay(33);
                     _coroutineHandler.WorksUpdate(33);
@@ -54,24 +55,25 @@ namespace AOIClient
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             Pen blackPen = new Pen(Color.Black, 1);
-            
-            var maxLength = (GameManager.Instance.Map.MaxX + 1) * Map.CellSize;
+
+            var maxLength = GameManager.Instance.Map.GetMaxX() * GameManager.CellSize;
 
             //°¡·Î
-            for (int i=0; i<= GameManager.Instance.Map.MaxX + 1; ++i)
+            for (int i = 0; i <= GameManager.Instance.Map.GetMaxX(); ++i)
             {
-                e.Graphics.DrawLine(blackPen, 0, Map.CellSize * i, maxLength, Map.CellSize * i);
+                e.Graphics.DrawLine(blackPen, 0, GameManager.CellSize * i, maxLength, GameManager.CellSize * i);
             }
-            for (int i = 0; i <= GameManager.Instance.Map.MaxY + 1; ++i)
+            for (int i = 0; i <= GameManager.Instance.Map.GetMaxY(); ++i)
             {
-                e.Graphics.DrawLine(blackPen, Map.CellSize * i, 0, Map.CellSize * i, maxLength);
+                e.Graphics.DrawLine(blackPen, GameManager.CellSize * i, 0, GameManager.CellSize * i, maxLength);
             }
             PlayerPaint(e.Graphics);
+            FogPaint(e.Graphics);
             OtherPlayerPaint(e.Graphics);
         }
         public IEnumerator UpdateUI()
         {
-            while(true)
+            while (true)
             {
                 this.BeginInvoke(RefreshUI);
                 yield return null;
@@ -89,39 +91,76 @@ namespace AOIClient
                 return;
             }
 
-            foreach(var item in GameManager.Instance.Players.Values)
+            foreach (var item in GameManager.Instance.Players.Values)
             {
                 graphics.FillEllipse(new SolidBrush(Color.Green),
-                new Rectangle(item.CellPos.X - 10,
-                item.CellPos.Y - 10,
-                20,
-                20));
+                new Rectangle(item.CellPos.X * GameManager.CellSize,
+                item.CellPos.Y * GameManager.CellSize,
+                GameManager.CellSize,
+                GameManager.CellSize));
 
                 graphics.DrawString(item.Nickname,
                 new Font("Arial", 10),
                 new SolidBrush(Color.Black),
-                new PointF(item.CellPos.X - 10,
-                item.CellPos.Y - 10));
+                new PointF(item.CellPos.X * GameManager.CellSize,
+                item.CellPos.Y * GameManager.CellSize));
             }
         }
         private void PlayerPaint(Graphics graphics)
         {
-            if(GameManager.Instance.UserPlayer == null)
+            if (GameManager.Instance.UserPlayer == null)
             {
                 return;
             }
+
             graphics.FillEllipse(new SolidBrush(Color.Red),
-                new Rectangle(GameManager.Instance.UserPlayer.CellPos.X-10, GameManager.Instance.UserPlayer.CellPos.Y-10, 20, 20));
+                new Rectangle(
+                    GameManager.Instance.UserPlayer.CellPos.X * GameManager.CellSize,
+                    GameManager.Instance.UserPlayer.CellPos.Y * GameManager.CellSize,
+                    GameManager.CellSize,
+                    GameManager.CellSize));
 
             graphics.DrawString(GameManager.Instance.UserPlayer.Nickname,
                 new Font("Arial", 10),
                 new SolidBrush(Color.Black),
-                new PointF(GameManager.Instance.UserPlayer.CellPos.X-10, GameManager.Instance.UserPlayer.CellPos.Y-10));
+                new PointF(GameManager.Instance.UserPlayer.CellPos.X * GameManager.CellSize, GameManager.Instance.UserPlayer.CellPos.Y * GameManager.CellSize));
+        }
+        private void FogPaint(Graphics graphics)
+        {
+            if (GameManager.Instance.UserPlayer == null)
+            {
+                return;
+            }
+            var characterCellIndex = GameManager.Instance.Map.GetCellIndex(GameManager.Instance.UserPlayer.CellPos);
+
+            var indexes = new List<int>(GameManager.Instance.Map.GetAroundCellByIndex(characterCellIndex));
+
+            for (int x = 0; x < GameManager.Instance.Map.GetMaxX(); ++x)
+            {
+                for (int y = 0; y < GameManager.Instance.Map.GetMaxY(); ++y)
+                {
+                    var vector = new Vector2Int(x, y);
+
+                    var index = GameManager.Instance.Map.GetCellIndex(vector);
+
+                    if (indexes.Contains(index) == true)
+                    {
+                        continue;
+                    }
+
+                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(125, Color.Black)),
+                    new Rectangle(
+                        x * GameManager.CellSize,
+                        y * GameManager.CellSize,
+                        GameManager.CellSize,
+                        GameManager.CellSize));
+                }
+            }
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if(keyData == Keys.Left)
+            if (keyData == Keys.Left)
             {
                 ClientModule.Instance.Send(Packet.MakePacket(CSProtocol.Move,
                     new Move()
@@ -130,7 +169,7 @@ namespace AOIClient
                         Y = 0
                     }));
             }
-            else if(keyData == Keys.Right)
+            else if (keyData == Keys.Right)
             {
                 ClientModule.Instance.Send(Packet.MakePacket(CSProtocol.Move,
                     new Move()
@@ -139,7 +178,7 @@ namespace AOIClient
                         Y = 0
                     }));
             }
-            else if(keyData == Keys.Down)
+            else if (keyData == Keys.Down)
             {
                 ClientModule.Instance.Send(Packet.MakePacket(CSProtocol.Move,
                     new Move()
@@ -148,7 +187,7 @@ namespace AOIClient
                         Y = 1
                     }));
             }
-            else if(keyData == Keys.Up)
+            else if (keyData == Keys.Up)
             {
                 ClientModule.Instance.Send(Packet.MakePacket(CSProtocol.Move,
                     new Move()
@@ -164,6 +203,6 @@ namespace AOIClient
         {
             ClientModule.Instance.Connect();
         }
-        
+
     }
 }

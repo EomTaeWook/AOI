@@ -29,9 +29,9 @@ namespace AOIClient.Modules
     internal class ClientModule : Singleton<ClientModule>
     {
         readonly AOIClient _client;
-        private List<AOIClient> _clients = new List<AOIClient>();
+        private List<AOIClient> _npcs = new List<AOIClient>();
         public bool IsConnected = false;
-
+        private static volatile int _npcNumber = 0;
         public ClientModule()
         {
             _client = new AOIClient(new SessionCreator(MakeSerializersFunc));
@@ -43,10 +43,11 @@ namespace AOIClient.Modules
             try
             {
                 npc.Connect("127.0.0.1", 10000);
-                _clients.Add(npc);
+                _npcs.Add(npc);
                 npc.Send(Packet.MakePacket<Login>(CSProtocol.Login, new Login()
                 {
                     IsNpc = true,
+                    Nickname = $"Npc{_npcNumber++}"
                 }));
             }
             catch(Exception ex)
@@ -67,6 +68,7 @@ namespace AOIClient.Modules
 
                 _client.Send(Packet.MakePacket<Login>(CSProtocol.Login, new Login()
                 {
+                    Nickname = "Player1"
                 }));
             }
             catch(Exception ex)

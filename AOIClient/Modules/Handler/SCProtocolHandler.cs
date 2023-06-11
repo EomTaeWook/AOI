@@ -22,22 +22,25 @@ namespace AOIClient.Modules.Handler
             Session = session;
         }
         [ProtocolName("LoginResponse")]
-        public void Process(LoginResponse body)
+        public void LoginResponse(LoginResponse body)
         {
-            if (body.IsNpc)
-            {
-                //GameManager.Instance.Players.Add(body.Player);
-            }
-            else
+            if (body.IsNpc == false)
             {
                 GameManager.Instance.SetUserPlayer(body.Player);
             }
+            else
+            {
 
+            }
         }
         [ProtocolName("Spawn")]
         public void Process(Spawn body)
         {
-            if(body.Player.Nickname != GameManager.Instance.UserPlayer.Nickname)
+            if (GameManager.Instance.UserPlayer == null)
+            {
+                return;
+            }
+            if (body.Player.Nickname != GameManager.Instance.UserPlayer.Nickname)
             {
                 if(GameManager.Instance.AddPlayer(body.Player) == false)
                 {
@@ -48,6 +51,10 @@ namespace AOIClient.Modules.Handler
         [ProtocolName("Despawn")]
         public void Process(Despawn body)
         {
+            if (GameManager.Instance.UserPlayer == null)
+            {
+                return;
+            }
             if (body.Player.Nickname != GameManager.Instance.UserPlayer.Nickname)
             {
                 GameManager.Instance.RemovePlayer(body.Player);
@@ -56,9 +63,8 @@ namespace AOIClient.Modules.Handler
         [ProtocolName("MoveResponse")]
         public void Process(MoveResponse body)
         {
-            GameManager.Instance.UserPlayer.CellPos += new Vector2Int(body.X, body.Y);
-
-            //GameManager.Instance.EnterMyPlayer();
+            var position = new Vector2Int(body.X, body.Y);
+            GameManager.Instance.UserPlayer.CellPos += position;
         }
 
         public T DeserializeBody<T>(string body)

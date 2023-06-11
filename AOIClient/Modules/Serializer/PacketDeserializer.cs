@@ -28,7 +28,7 @@ namespace AOIClient.Modules.Serializer
 
         public void Deserialize(ArrayList<byte> buffer)
         {
-            var packetSizeBytes = BitConverter.ToInt32(buffer.Peek(LegnthSize));
+            var packetSizeBytes = BitConverter.ToInt32(buffer.Read(LegnthSize));
             var bytes = buffer.Read(packetSizeBytes);
             var protocol = BitConverter.ToInt16(bytes);
             var body = Encoding.UTF8.GetString(bytes, ProtocolSize, bytes.Length - ProtocolSize);
