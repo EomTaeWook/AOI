@@ -16,7 +16,7 @@ internal class Program
         LogBuilder.Configuration(LogConfigXmlReader.Load(logConfigPath));
         LogBuilder.Build();
 
-        HandlerBinder<CSProtocolHandler,string>.Bind<CSProtocol>();
+        HandlerBinder<CSProtocolHandler>.BindProtocol<CSProtocol>();
 
         AOIServerModule.Instance.Start();
     }

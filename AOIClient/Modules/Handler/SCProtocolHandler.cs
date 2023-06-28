@@ -12,6 +12,7 @@ namespace AOIClient.Modules.Handler
     public partial class SCProtocolHandler : IProtocolHandler<string>, ISessionComponent
     {
         public Session Session { get; private set; }
+        private bool _isNpc;
         public void Dispose()
         {
             Session = null;
@@ -28,15 +29,12 @@ namespace AOIClient.Modules.Handler
             {
                 GameManager.Instance.SetUserPlayer(body.Player);
             }
-            else
-            {
-
-            }
+            _isNpc = body.IsNpc;
         }
         [ProtocolName("Spawn")]
         public void Process(Spawn body)
         {
-            if (GameManager.Instance.UserPlayer == null)
+            if (_isNpc == true)
             {
                 return;
             }
@@ -51,7 +49,7 @@ namespace AOIClient.Modules.Handler
         [ProtocolName("Despawn")]
         public void Process(Despawn body)
         {
-            if (GameManager.Instance.UserPlayer == null)
+            if (_isNpc == true)
             {
                 return;
             }

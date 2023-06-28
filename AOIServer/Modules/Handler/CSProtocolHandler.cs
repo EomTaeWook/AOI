@@ -77,10 +77,7 @@ namespace AOIServer.Modules.Handler
                 }));
 
             GameManager.Instance.EnterGame(User);
-            if (packet.IsNpc == false)
-            {
-                GameManager.Instance.UpdateAroundPlayer(User);
-            }
+            GameManager.Instance.UpdateAroundPlayer(User);
         }
         public void SetSession(Session session)
         {
