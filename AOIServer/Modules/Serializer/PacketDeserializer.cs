@@ -11,14 +11,14 @@ namespace AOIServer.Modules.Serializer
     {
         private const int ProtocolSize = sizeof(ushort);
 
-        private CSProtocolHandler _aoiHandler;
-        public PacketDeserializer(CSProtocolHandler aoiHandler)
+        private CSProtocolHandler _protocolHandler;
+        public PacketDeserializer(CSProtocolHandler csProtocolHandler)
         {
-            _aoiHandler = aoiHandler;
+            _protocolHandler = csProtocolHandler;
         }
         public const int LegnthSize = sizeof(int);
-        
-        public bool IsTakedCompletePacket(ArrayList<byte> buffer)
+
+        public bool IsCompletePacketInBuffer(ArrayQueue<byte> buffer)
         {
             if (buffer.LongCount < LegnthSize)
             {
@@ -28,18 +28,18 @@ namespace AOIServer.Modules.Serializer
             return (buffer.LongCount - LegnthSize) >= packetSizeBytes;
         }
 
-        public void Deserialize(ArrayList<byte> buffer)
+        public void Deserialize(ArrayQueue<byte> buffer)
         {
             var packetSizeBytes = BitConverter.ToInt32(buffer.Read(LegnthSize));
             var bytes = buffer.Read(packetSizeBytes);
             var protocol = BitConverter.ToInt16(bytes);
             var body = Encoding.UTF8.GetString(bytes, ProtocolSize, bytes.Length - ProtocolSize);
-            if (_aoiHandler.CheckProtocol(protocol) == false)
+            if (_protocolHandler.CheckProtocol(protocol) == false)
             {
                 LogHelper.Error($"[Server]protocol invalid - {protocol}");
                 return;
             }
-            _aoiHandler.Process(protocol, body);
+            _protocolHandler.Process(protocol, body);
         }
     }
 }

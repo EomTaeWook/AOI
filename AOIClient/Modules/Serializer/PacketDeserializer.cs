@@ -16,7 +16,7 @@ namespace AOIClient.Modules.Serializer
         {
             _handler = handler;
         }
-        public bool IsTakedCompletePacket(ArrayList<byte> buffer)
+        public bool IsCompletePacketInBuffer(ArrayQueue<byte> buffer)
         {
             if (buffer.Count < LegnthSize)
             {
@@ -26,7 +26,7 @@ namespace AOIClient.Modules.Serializer
             return (buffer.Count - LegnthSize) >= packetSizeBytes;
         }
 
-        public void Deserialize(ArrayList<byte> buffer)
+        public void Deserialize(ArrayQueue<byte> buffer)
         {
             var packetSizeBytes = BitConverter.ToInt32(buffer.Read(LegnthSize));
             var bytes = buffer.Read(packetSizeBytes);

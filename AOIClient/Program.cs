@@ -21,7 +21,7 @@ namespace AOIClient
             LogBuilder.Configuration(LogConfigXmlReader.Load($"{AppContext.BaseDirectory}DignusLog.config"));
             LogBuilder.Build();
 
-            HandlerBinder<SCProtocolHandler>.BindProtocol<SCProtocol>();
+            ProtocolToHandlerMapper<SCProtocolHandler, string>.BindProtocol<SCProtocol>();
 
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());

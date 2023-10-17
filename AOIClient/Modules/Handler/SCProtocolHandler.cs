@@ -9,7 +9,7 @@ using System.Text.Json;
 
 namespace AOIClient.Modules.Handler
 {
-    public partial class SCProtocolHandler : IProtocolHandler<string>, ISessionComponent
+    public partial class SCProtocolHandler : IProtocolHandler<string>, ISessionHandler
     {
         public Session Session { get; private set; }
         private bool _isNpc;
@@ -40,9 +40,9 @@ namespace AOIClient.Modules.Handler
             }
             if (body.Player.Nickname != GameManager.Instance.UserPlayer.Nickname)
             {
-                if(GameManager.Instance.AddPlayer(body.Player) == false)
+                if (GameManager.Instance.AddPlayer(body.Player) == false)
                 {
-                    LogHelper.Error($"duplicated player player Id : {body.Player.Nickname}"); 
+                    LogHelper.Error($"duplicated player player Id : {body.Player.Nickname}");
                 }
             }
         }

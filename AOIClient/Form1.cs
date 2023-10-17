@@ -5,7 +5,6 @@ using Dignus.Coroutine;
 using Protocol.CAndS;
 using Share;
 using System.Collections;
-using System.Drawing;
 
 namespace AOIClient
 {
@@ -31,7 +30,7 @@ namespace AOIClient
                 while (true)
                 {
                     await Task.Delay(33);
-                    _coroutineHandler.WorksUpdate(33);
+                    _coroutineHandler.UpdateCoroutines(33);
                 }
             });
 

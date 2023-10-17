@@ -10,7 +10,7 @@ using System.Text.Json;
 
 namespace AOIServer.Modules.Handler
 {
-    public partial class CSProtocolHandler : IProtocolHandler<string>, ISessionComponent
+    public partial class CSProtocolHandler : IProtocolHandler<string>, ISessionHandler
     {
         private User User { get; set; }
         public Session Session { get; private set; }
@@ -23,13 +23,13 @@ namespace AOIServer.Modules.Handler
             var result = GameManager.Instance.Move(User,
                 targetPosition);
 
-            if(result == false)
+            if (result == false)
             {
                 Session.Send(Packet.MakePacket(SCProtocol.MoveResponse,
                 new MoveResponse()
                 {
                     Ok = false
-                }));                
+                }));
             }
             else
             {
@@ -42,7 +42,7 @@ namespace AOIServer.Modules.Handler
                 }));
                 GameManager.Instance.UpdateAroundPlayer(User);
             }
-            
+
 
         }
         public void Login(Login packet)

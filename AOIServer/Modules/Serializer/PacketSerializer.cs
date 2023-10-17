@@ -7,13 +7,13 @@ namespace AOIServer.Modules.Serializer
 {
     internal class PacketSerializer : IPacketSerializer
     {
-        public ArrayList<byte> MakeSendBuffer(IPacket packet)
+        public ArrayQueue<byte> MakeSendBuffer(IPacket packet)
         {
             var sendPacket = packet as Packet;
 
             var packetSize = sendPacket.GetLength();
 
-            var buffer = new ArrayList<byte>();
+            var buffer = new ArrayQueue<byte>();
 
             buffer.AddRange(BitConverter.GetBytes(packetSize));
 
@@ -28,7 +28,7 @@ namespace AOIServer.Modules.Serializer
         {
             var sendPacket = packet as Packet;
             var packetSize = sendPacket.GetLength();
-            var buffer = new ArrayList<byte>();
+            var buffer = new ArrayQueue<byte>();
 
             buffer.AddRange(BitConverter.GetBytes(packetSize));
             buffer.AddRange(BitConverter.GetBytes((ushort)sendPacket.Protocol));

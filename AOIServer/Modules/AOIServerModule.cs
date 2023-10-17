@@ -55,15 +55,15 @@ namespace AOIServer.Modules
                 }
             }).GetAwaiter().GetResult();
         }
-        private Tuple<IPacketSerializer, IPacketDeserializer, ICollection<ISessionComponent>> MakeSerializersFunc()
+        private Tuple<IPacketSerializer, IPacketDeserializer, ICollection<ISessionHandler>> MakeSerializersFunc()
         {
             CSProtocolHandler handler = new();
 
-            return Tuple.Create<IPacketSerializer, IPacketDeserializer, ICollection<ISessionComponent>>(
+            return Tuple.Create<IPacketSerializer, IPacketDeserializer, ICollection<ISessionHandler>>(
                 new PacketSerializer(),
                 new PacketDeserializer(handler),
-                new List<ISessionComponent>() 
-                { 
+                new List<ISessionHandler>()
+                {
                     handler
                 });
         }

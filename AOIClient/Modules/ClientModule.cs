@@ -35,7 +35,7 @@ namespace AOIClient.Modules
         public ClientModule()
         {
             _client = new AOIClient(new SessionCreator(MakeSerializersFunc));
-            
+
         }
         public void AddNpc()
         {
@@ -50,14 +50,14 @@ namespace AOIClient.Modules
                     Nickname = $"Npc{_npcNumber++}"
                 }));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogHelper.Error(ex);
             }
         }
         public void Connect()
         {
-            if(IsConnected == true)
+            if (IsConnected == true)
             {
                 return;
             }
@@ -66,27 +66,28 @@ namespace AOIClient.Modules
             {
                 _client.Connect("127.0.0.1", 10000);
 
-                _client.Send(Packet.MakePacket<Login>(CSProtocol.Login, new Login()
-                {
-                    Nickname = "Player1"
-                }));
+                _client.Send(Packet.MakePacket(CSProtocol.Login,
+                    new Login()
+                    {
+                        Nickname = "Player1"
+                    }));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogHelper.Error(ex);
                 IsConnected = false;
             }
         }
 
-        private Tuple<IPacketSerializer, IPacketDeserializer, ICollection<ISessionComponent>> MakeSerializersFunc()
+        private Tuple<IPacketSerializer, IPacketDeserializer, ICollection<ISessionHandler>> MakeSerializersFunc()
         {
             SCProtocolHandler handler = new SCProtocolHandler();
-            return Tuple.Create<IPacketSerializer, IPacketDeserializer, ICollection<ISessionComponent>>(
+            return Tuple.Create<IPacketSerializer, IPacketDeserializer, ICollection<ISessionHandler>>(
                 new PacketSerializer(),
                 new PacketDeserializer(handler),
-                new List<ISessionComponent>() 
+                new List<ISessionHandler>()
                 {
-                    handler 
+                    handler
                 });
         }
 
