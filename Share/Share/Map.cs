@@ -69,35 +69,43 @@ namespace Share
             var index = GetCellIndex(player.CellPos);
             _cellPlayerDatas[index].Remove(player);
         }
-        public List<int> GetAroundCellByIndex(int index)
+        public List<int> GetAroundCellByIndex(int index, int sight)
         {
-            var list = new List<int>();
-            
+            var list = new List<int>
+            {
+                index
+            };
+
             var xIndex = index % _xCellSize;
-
-            if (xIndex > 0)
+            for (int i = 0; i < sight; ++i)
             {
-                list.Add(index - 1);
+                if (xIndex - i > 0)
+                {
+                    list.Add(index - (1 + i));
+                }
+                if (xIndex + i < _xCellSize - 1)
+                {
+                    list.Add(index + 1 + i);
+                }
             }
 
-            list.Add(index);
-
-            if (xIndex < _xCellSize - 1)
-            {
-                list.Add(index + 1);
-            }
             var listX = new List<int>(list);
+
             for (int i = 0; i < listX.Count; ++i)
             {
-                var yIndex = listX[i] / _yCellSize;
-                if (yIndex > 0)
-                {
-                    list.Add(listX[i] - _yCellSize);
-                }
+                var yIndex = listX[i] / _xCellSize;
 
-                if (yIndex < _yCellSize - 1)
+                for (int ii = 0; ii < sight; ++ii)
                 {
-                    list.Add(listX[i] + _yCellSize);
+                    if (yIndex - ii > 0)
+                    {
+                        list.Add(listX[i] - (_xCellSize * (ii + 1)));
+                    }
+
+                    if (yIndex + ii < _xCellSize - 1)
+                    {
+                        list.Add(listX[i] + (_xCellSize * (ii + 1)));
+                    }
                 }
             }
             return list;

@@ -32,7 +32,7 @@ namespace AOIServer.Internal
         }
         public void LeaveGame(User user)
         {
-            if(user.Player == null)
+            if (user.Player == null)
             {
                 LogHelper.Error($"player is null");
                 return;
@@ -58,7 +58,7 @@ namespace AOIServer.Internal
         {
             var cellIndex = _map.GetCellIndex(user.Player.CellPos);
 
-            var indexList = _map.GetAroundCellByIndex(cellIndex);
+            var indexList = _map.GetAroundCellByIndex(cellIndex, 1);
 
             var prevAroundPlayers = new HashSet<Player>(user.AroundPlayers);
 
@@ -68,13 +68,13 @@ namespace AOIServer.Internal
             foreach (var index in indexList)
             {
                 var players = _map.GetAllPlayersInCell(index);
-                foreach(var player in players)
+                foreach (var player in players)
                 {
-                    if(user.Player == player)
+                    if (user.Player == player)
                     {
                         continue;
                     }
-                    if(prevAroundPlayers.Contains(player) == false)
+                    if (prevAroundPlayers.Contains(player) == false)
                     {
                         addAroundPlayer.Add(player);
                     }
@@ -85,13 +85,13 @@ namespace AOIServer.Internal
             var removed = new List<Player>();
             foreach (var player in prevAroundPlayers)
             {
-                if(currentAroundPlayers.Contains(player) == false)
+                if (currentAroundPlayers.Contains(player) == false)
                 {
                     removed.Add(player);
                 }
             }
 
-            foreach(var item in addAroundPlayer)
+            foreach (var item in addAroundPlayer)
             {
                 user.AroundPlayers.Add(item);
             }
@@ -102,7 +102,7 @@ namespace AOIServer.Internal
 
             foreach (var item in addAroundPlayer)
             {
-                if(item.Nickname.Equals(user.Player.Nickname) == true)
+                if (item.Nickname.Equals(user.Player.Nickname) == true)
                 {
                     continue;
                 }
@@ -149,11 +149,11 @@ namespace AOIServer.Internal
                             Player = item
                         }));
                 }
-            }            
+            }
         }
         public bool Move(User user, Vector2Int targetPosition)
         {
-            if(_map.CanGo(targetPosition) == false)
+            if (_map.CanGo(targetPosition) == false)
             {
                 return false;
             }

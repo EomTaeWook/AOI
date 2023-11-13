@@ -132,7 +132,7 @@ namespace AOIClient
             }
             var characterCellIndex = GameManager.Instance.Map.GetCellIndex(GameManager.Instance.UserPlayer.CellPos);
 
-            var indexes = new List<int>(GameManager.Instance.Map.GetAroundCellByIndex(characterCellIndex));
+            var indexes = new List<int>(GameManager.Instance.Map.GetAroundCellByIndex(characterCellIndex, 1));
 
             for (int x = 0; x < GameManager.Instance.Map.GetMaxX(); ++x)
             {
