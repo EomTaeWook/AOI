@@ -42,8 +42,6 @@ namespace AOIServer.Modules.Handler
                 }));
                 GameManager.Instance.UpdateAroundPlayer(User);
             }
-
-
         }
         public void Login(Login packet)
         {

@@ -11,7 +11,7 @@ namespace AOIServer.Modules.Serializer
     {
         private const int ProtocolSize = sizeof(ushort);
 
-        private CSProtocolHandler _protocolHandler;
+        private readonly CSProtocolHandler _protocolHandler;
         public PacketDeserializer(CSProtocolHandler csProtocolHandler)
         {
             _protocolHandler = csProtocolHandler;

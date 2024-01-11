@@ -17,7 +17,7 @@ namespace AOIServer.Modules.Serializer
 
             buffer.AddRange(BitConverter.GetBytes(packetSize));
 
-            buffer.AddRange(BitConverter.GetBytes((ushort)sendPacket.Protocol));
+            buffer.AddRange(BitConverter.GetBytes(sendPacket.Protocol));
 
             buffer.AddRange(sendPacket.Body);
             LogHelper.Debug($"send : {sendPacket.Protocol}");
@@ -31,10 +31,10 @@ namespace AOIServer.Modules.Serializer
             var buffer = new ArrayQueue<byte>();
 
             buffer.AddRange(BitConverter.GetBytes(packetSize));
-            buffer.AddRange(BitConverter.GetBytes((ushort)sendPacket.Protocol));
+            buffer.AddRange(BitConverter.GetBytes(sendPacket.Protocol));
             buffer.AddRange(sendPacket.Body);
             LogHelper.Debug($"send : {sendPacket.Protocol}");
-            return new ArraySegment<byte>(buffer.ToArray());
+            return new ArraySegment<byte>([.. buffer]);
         }
     }
 }

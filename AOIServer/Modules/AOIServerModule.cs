@@ -15,16 +15,7 @@ namespace AOIServer.Modules
 
         protected override void OnAccepted(Session session)
         {
-            LogHelper.Info($"[Server] acceptd session : {session.Id}");
-            //var bodyData = new ConnectResponse()
-            //{
-            //    PlyerName = $"Player{session.Id}",
-            //    X = 180,
-            //    Y = 50
-            //};
-
-            //session.Send(Packet.MakePacket<ConnectResponse>(SCProtocol.ConnectResponse,
-            //    bodyData));
+            LogHelper.Info($"[Server] accepted session : {session.Id}");
         }
 
         protected override void OnDisconnected(Session session)
