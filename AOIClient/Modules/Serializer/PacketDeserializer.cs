@@ -1,6 +1,7 @@
 ﻿using AOIClient.Modules.Handler;
 using Dignus.Collections;
 using Dignus.Log;
+using Dignus.Sockets;
 using Dignus.Sockets.Extensions;
 using Dignus.Sockets.Interface;
 using System.Text;
@@ -37,7 +38,7 @@ namespace AOIClient.Modules.Serializer
                 LogHelper.Error($"[Server]protocol invalid - {protocol}");
                 return;
             }
-            _handler.Process(protocol, body);
+            ProtocolToHandlerMapper<SCProtocolHandler, string>.Process(_handler, protocol, body);
         }
     }
 }
