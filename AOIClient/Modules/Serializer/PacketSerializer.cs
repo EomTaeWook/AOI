@@ -1,7 +1,7 @@
 ﻿using AOIClient.Net;
 using Dignus.Collections;
 using Dignus.Log;
-using Dignus.Sockets.Interface;
+using Dignus.Sockets.Interfaces;
 
 namespace AOIClient.Modules.Serializer
 {

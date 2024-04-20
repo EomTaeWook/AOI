@@ -1,8 +1,7 @@
 ﻿using AOIClient.Internal;
 using Dignus.Log;
-using Dignus.Sockets;
-using Dignus.Sockets.Attribute;
-using Dignus.Sockets.Interface;
+using Dignus.Sockets.Attributes;
+using Dignus.Sockets.Interfaces;
 using Protocol.SAndC;
 using Share;
 using System.Text.Json;
@@ -11,14 +10,14 @@ namespace AOIClient.Modules.Handler
 {
     public partial class SCProtocolHandler : IProtocolHandler<string>, ISessionHandler
     {
-        public Session Session { get; private set; }
+        public ISession Session { get; private set; }
         private bool _isNpc;
         public void Dispose()
         {
             Session = null;
         }
 
-        public void SetSession(Session session)
+        public void SetSession(ISession session)
         {
             Session = session;
         }

@@ -1,4 +1,4 @@
-﻿using Dignus.Sockets;
+﻿using Dignus.Sockets.Interfaces;
 using Share;
 
 namespace AOIServer.Internal
@@ -7,11 +7,11 @@ namespace AOIServer.Internal
     {
         public Player Player { get; private set; }
 
-        public Session Session { get; private set; }
+        public ISession Session { get; private set; }
 
         public HashSet<Player> AroundPlayers { get; private set; }
 
-        public User(Player player, Session session)
+        public User(Player player, ISession session)
         {
             Player = player;
             Session = session;

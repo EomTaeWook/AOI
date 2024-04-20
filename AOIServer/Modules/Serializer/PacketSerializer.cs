@@ -1,7 +1,7 @@
 ﻿using AOIServer.Net;
 using Dignus.Collections;
 using Dignus.Log;
-using Dignus.Sockets.Interface;
+using Dignus.Sockets.Interfaces;
 
 namespace AOIServer.Modules.Serializer
 {

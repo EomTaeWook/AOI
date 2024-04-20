@@ -2,8 +2,7 @@
 using Dignus.Collections;
 using Dignus.Log;
 using Dignus.Sockets;
-using Dignus.Sockets.Extensions;
-using Dignus.Sockets.Interface;
+using Dignus.Sockets.Interfaces;
 using System.Text;
 
 namespace AOIClient.Modules.Serializer
@@ -33,12 +32,12 @@ namespace AOIClient.Modules.Serializer
             var bytes = buffer.Read(packetSizeBytes);
             var protocol = BitConverter.ToInt16(bytes);
             var body = Encoding.UTF8.GetString(bytes, ProtocolSize, bytes.Length - ProtocolSize);
-            if (_handler.CheckProtocol(protocol) == false)
+            if (ProtocolHandlerMapper.ValidateProtocol<SCProtocolHandler>(protocol) == false)
             {
                 LogHelper.Error($"[Server]protocol invalid - {protocol}");
                 return;
             }
-            ProtocolToHandlerMapper<SCProtocolHandler, string>.Process(_handler, protocol, body);
+            ProtocolHandlerMapper<SCProtocolHandler, string>.DispatchProtocolAction(_handler, protocol, body);
         }
     }
 }

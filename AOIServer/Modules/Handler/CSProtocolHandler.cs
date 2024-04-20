@@ -1,8 +1,7 @@
 ﻿using AOIServer.Internal;
 using AOIServer.Net;
-using Dignus.Sockets;
-using Dignus.Sockets.Attribute;
-using Dignus.Sockets.Interface;
+using Dignus.Sockets.Attributes;
+using Dignus.Sockets.Interfaces;
 using Protocol.CAndS;
 using Protocol.SAndC;
 using Share;
@@ -13,7 +12,7 @@ namespace AOIServer.Modules.Handler
     public partial class CSProtocolHandler : IProtocolHandler<string>, ISessionHandler
     {
         private User User { get; set; }
-        public Session Session { get; private set; }
+        public ISession Session { get; private set; }
 
         [ProtocolName("Move")]
         public void Process(Move packet)
@@ -77,7 +76,7 @@ namespace AOIServer.Modules.Handler
             GameManager.Instance.EnterGame(User);
             GameManager.Instance.UpdateAroundPlayer(User);
         }
-        public void SetSession(Session session)
+        public void SetSession(ISession session)
         {
             Session = session;
         }

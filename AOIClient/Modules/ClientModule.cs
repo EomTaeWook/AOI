@@ -4,7 +4,7 @@ using AOIClient.Net;
 using Dignus.Framework;
 using Dignus.Log;
 using Dignus.Sockets;
-using Dignus.Sockets.Interface;
+using Dignus.Sockets.Interfaces;
 using Protocol.CAndS;
 
 namespace AOIClient.Modules
@@ -15,12 +15,12 @@ namespace AOIClient.Modules
         {
         }
 
-        protected override void OnConnected(Session session)
+        protected override void OnConnected(ISession session)
         {
             LogHelper.Debug($"[Client] Server Connected");
         }
 
-        protected override void OnDisconnected(Session session)
+        protected override void OnDisconnected(ISession session)
         {
             LogHelper.Debug($"[Client] Server Disconnected");
         }

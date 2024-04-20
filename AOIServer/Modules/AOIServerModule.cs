@@ -3,7 +3,7 @@ using AOIServer.Modules.Serializer;
 using Dignus.Framework;
 using Dignus.Log;
 using Dignus.Sockets;
-using Dignus.Sockets.Interface;
+using Dignus.Sockets.Interfaces;
 
 namespace AOIServer.Modules
 {
@@ -13,12 +13,12 @@ namespace AOIServer.Modules
         {
         }
 
-        protected override void OnAccepted(Session session)
+        protected override void OnAccepted(ISession session)
         {
             LogHelper.Info($"[Server] accepted session : {session.Id}");
         }
 
-        protected override void OnDisconnected(Session session)
+        protected override void OnDisconnected(ISession session)
         {
             LogHelper.Info($"[Server] disconnected : {session.Id}");
         }
