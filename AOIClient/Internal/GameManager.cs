@@ -1,10 +1,6 @@
-﻿using AOIClient.Net;
-using Dignus.Framework;
-using Dignus.Log;
-using Dignus.Sockets;
-using Protocol.CAndS;
+﻿using Dignus.Framework;
 using Share;
-using static Dignus.Sockets.SessionCreator;
+
 
 namespace AOIClient.Internal
 {
@@ -30,7 +26,7 @@ namespace AOIClient.Internal
         }
         public bool AddPlayer(Player player)
         {
-            if(UserPlayer == null)
+            if (UserPlayer == null)
             {
                 return true;
             }
@@ -38,7 +34,7 @@ namespace AOIClient.Internal
         }
         public Player this[string key]
         {
-            get 
+            get
             {
                 Players.TryGetValue(key, out Player player);
                 return player;
@@ -48,7 +44,7 @@ namespace AOIClient.Internal
         {
             _npc.Add(npc);
         }
-        
+
         public void SetUserPlayer(Player player)
         {
             EnterMyPlayer(player);
@@ -57,6 +53,6 @@ namespace AOIClient.Internal
         {
             UserPlayer = player;
         }
-        
+
     }
 }

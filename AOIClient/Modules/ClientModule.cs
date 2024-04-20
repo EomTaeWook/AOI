@@ -11,7 +11,7 @@ namespace AOIClient.Modules
 {
     internal class AOIClient : ClientBase
     {
-        public AOIClient(SessionCreator sessionCreator) : base(sessionCreator)
+        public AOIClient(SessionInitializer sessionInitializer) : base(sessionInitializer)
         {
         }
 
@@ -34,12 +34,12 @@ namespace AOIClient.Modules
         private static volatile int _npcNumber = 0;
         public ClientModule()
         {
-            _client = new AOIClient(new SessionCreator(MakeSerializersFunc));
+            _client = new AOIClient(new SessionInitializer(MakeSerializersFunc));
 
         }
         public void AddNpc()
         {
-            var npc = new AOIClient(new SessionCreator(MakeSerializersFunc));
+            var npc = new AOIClient(new SessionInitializer(MakeSerializersFunc));
             try
             {
                 npc.Connect("127.0.0.1", 10000);

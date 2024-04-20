@@ -9,7 +9,7 @@ namespace AOIServer.Modules
 {
     public class AOIServer : ServerBase
     {
-        public AOIServer(SessionCreator sessionCreator) : base(sessionCreator)
+        public AOIServer(SessionInitializer sessionInitializer) : base(sessionInitializer)
         {
         }
 
@@ -30,7 +30,7 @@ namespace AOIServer.Modules
         private bool _isActive = false;
         public AOIServerModule()
         {
-            _aoiServer = new AOIServer(new SessionCreator(MakeSerializersFunc));
+            _aoiServer = new AOIServer(new SessionInitializer(MakeSerializersFunc));
         }
         public void Start()
         {
