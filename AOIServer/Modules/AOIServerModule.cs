@@ -37,7 +37,7 @@ namespace AOIServer.Modules
             int port = 10000;
             Task.Run(async () =>
             {
-                _aoiServer.Start(port);
+                _aoiServer.Start("", port, ProtocolType.Tcp, 100);
                 LogHelper.Debug($"aoi server start... port : {port}");
                 _isActive = true;
                 while (_isActive)
