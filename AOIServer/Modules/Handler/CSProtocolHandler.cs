@@ -9,7 +9,7 @@ using System.Text.Json;
 
 namespace AOIServer.Modules.Handler
 {
-    public partial class CSProtocolHandler : IProtocolHandler<string>, ISessionHandler
+    public partial class CSProtocolHandler : IProtocolHandler<string>, ISessionComponent
     {
         private User User { get; set; }
         public ISession Session { get; private set; }

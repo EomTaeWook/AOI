@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace AOIClient.Modules.Handler
 {
-    public partial class SCProtocolHandler : IProtocolHandler<string>, ISessionHandler
+    public partial class SCProtocolHandler : IProtocolHandler<string>, ISessionComponent
     {
         public ISession Session { get; private set; }
         private bool _isNpc;

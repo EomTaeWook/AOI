@@ -79,13 +79,13 @@ namespace AOIClient.Modules
             }
         }
 
-        private Tuple<IPacketSerializer, IPacketDeserializer, ICollection<ISessionHandler>> MakeSerializersFunc()
+        private Tuple<IPacketSerializer, IPacketDeserializer, ICollection<ISessionComponent>> MakeSerializersFunc()
         {
             SCProtocolHandler handler = new SCProtocolHandler();
-            return Tuple.Create<IPacketSerializer, IPacketDeserializer, ICollection<ISessionHandler>>(
+            return Tuple.Create<IPacketSerializer, IPacketDeserializer, ICollection<ISessionComponent>>(
                 new PacketSerializer(),
                 new PacketDeserializer(handler),
-                new List<ISessionHandler>()
+                new List<ISessionComponent>()
                 {
                     handler
                 });
