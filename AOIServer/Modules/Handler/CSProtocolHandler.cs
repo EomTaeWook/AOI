@@ -4,7 +4,7 @@ using Dignus.Sockets.Attributes;
 using Dignus.Sockets.Interfaces;
 using Protocol.CAndS;
 using Protocol.SAndC;
-using Share;
+using ShareModel;
 using System.Text.Json;
 
 namespace AOIServer.Modules.Handler

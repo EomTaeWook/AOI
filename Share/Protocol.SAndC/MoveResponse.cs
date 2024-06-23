@@ -1,6 +1,4 @@
-﻿using Share;
-
-namespace Protocol.SAndC
+﻿namespace Protocol.SAndC
 {
     public class MoveResponse
     {

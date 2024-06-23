@@ -3,7 +3,7 @@ using AOIClient.Modules;
 using AOIClient.Net;
 using Dignus.Coroutine;
 using Protocol.CAndS;
-using Share;
+using ShareModel;
 using System.Collections;
 
 namespace AOIClient

@@ -1,5 +1,5 @@
 ﻿using Dignus.Sockets.Interfaces;
-using Share;
+using ShareModel;
 
 namespace AOIServer.Internal
 {

@@ -1,4 +1,4 @@
-﻿namespace Share
+﻿namespace ShareModel
 {
     public class Vector2Int
     {
@@ -10,8 +10,8 @@
         { }
         public Vector2Int(int x, int y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
 
         public static Vector2Int Up { get { return new Vector2Int(0, 1); } }

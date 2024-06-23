@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Share\Share.csproj" />
+    <ProjectReference Include="..\ShareModel\ShareModel.csproj" />
   </ItemGroup>
 
 </Project>

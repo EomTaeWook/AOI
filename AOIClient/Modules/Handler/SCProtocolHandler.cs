@@ -3,7 +3,7 @@ using Dignus.Log;
 using Dignus.Sockets.Attributes;
 using Dignus.Sockets.Interfaces;
 using Protocol.SAndC;
-using Share;
+using ShareModel;
 using System.Text.Json;
 
 namespace AOIClient.Modules.Handler

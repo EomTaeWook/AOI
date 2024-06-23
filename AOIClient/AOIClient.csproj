@@ -17,7 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Share\Protocol.CAndS\Protocol.CAndS.csproj" />
     <ProjectReference Include="..\Share\Protocol.SAndC\Protocol.SAndC.csproj" />
-    <ProjectReference Include="..\Share\Share\Share.csproj" />
+    <ProjectReference Include="..\Share\ShareModel\ShareModel.csproj" />
   </ItemGroup>
 
   <ItemGroup>

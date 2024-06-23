@@ -10,7 +10,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Share\Protocol.CAndS\Protocol.CAndS.csproj" />
     <ProjectReference Include="..\Share\Protocol.SAndC\Protocol.SAndC.csproj" />
-    <ProjectReference Include="..\Share\Share\Share.csproj" />
   </ItemGroup>
 
   <ItemGroup>

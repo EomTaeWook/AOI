@@ -1,4 +1,4 @@
-﻿namespace Share
+﻿namespace ShareModel
 {
     public class Player
     {

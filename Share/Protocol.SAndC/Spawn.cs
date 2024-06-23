@@ -1,4 +1,4 @@
-﻿using Share;
+﻿using ShareModel;
 
 namespace Protocol.SAndC
 {

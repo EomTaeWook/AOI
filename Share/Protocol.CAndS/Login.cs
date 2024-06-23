@@ -1,6 +1,4 @@
-﻿using Share;
-
-namespace Protocol.CAndS
+﻿namespace Protocol.CAndS
 {
     public class Login
     {

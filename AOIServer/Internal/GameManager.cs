@@ -2,7 +2,7 @@
 using Dignus.Framework;
 using Dignus.Log;
 using Protocol.SAndC;
-using Share;
+using ShareModel;
 using System.Collections.Concurrent;
 
 namespace AOIServer.Internal

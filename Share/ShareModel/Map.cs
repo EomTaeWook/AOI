@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 
-namespace Share
+namespace ShareModel
 {
     public class Map
     {
@@ -99,12 +99,12 @@ namespace Share
                 {
                     if (yIndex - ii > 0)
                     {
-                        list.Add(listX[i] - (_xCellSize * (ii + 1)));
+                        list.Add(listX[i] - _xCellSize * (ii + 1));
                     }
 
                     if (yIndex + ii < _xCellSize - 1)
                     {
-                        list.Add(listX[i] + (_xCellSize * (ii + 1)));
+                        list.Add(listX[i] + _xCellSize * (ii + 1));
                     }
                 }
             }

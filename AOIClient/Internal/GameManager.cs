@@ -1,5 +1,5 @@
 ﻿using Dignus.Framework;
-using Share;
+using ShareModel;
 
 
 namespace AOIClient.Internal
