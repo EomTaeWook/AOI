@@ -24,7 +24,7 @@ namespace AOIServer.Modules.Handler
 
             if (result == false)
             {
-                Session.Send(Packet.MakePacket(SCProtocol.MoveResponse,
+                Session.TrySend(Packet.MakePacket(SCProtocol.MoveResponse,
                 new MoveResponse()
                 {
                     Ok = false
@@ -32,7 +32,7 @@ namespace AOIServer.Modules.Handler
             }
             else
             {
-                Session.Send(Packet.MakePacket(SCProtocol.MoveResponse,
+                Session.TrySend(Packet.MakePacket(SCProtocol.MoveResponse,
                 new MoveResponse()
                 {
                     Ok = result,
@@ -66,7 +66,7 @@ namespace AOIServer.Modules.Handler
 
             this.User = new User(player, Session);
 
-            Session.Send(Packet.MakePacket(SCProtocol.LoginResponse,
+            Session.TrySend(Packet.MakePacket(SCProtocol.LoginResponse,
                 new LoginResponse()
                 {
                     IsNpc = packet.IsNpc,

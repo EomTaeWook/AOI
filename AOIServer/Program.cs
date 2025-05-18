@@ -2,7 +2,6 @@
 
 using AOIServer.Modules;
 using AOIServer.Modules.Handler;
-using Dignus.Extensions.Log;
 using Dignus.Log;
 using Dignus.Sockets;
 using Protocol.CAndS;

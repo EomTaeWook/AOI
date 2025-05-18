@@ -2,41 +2,53 @@
 using Dignus.Collections;
 using Dignus.Log;
 using Dignus.Sockets;
-using Dignus.Sockets.Interfaces;
+using Dignus.Sockets.Processing;
 using System.Text;
 
 namespace AOIClient.Modules.Serializer
 {
-    internal class PacketDeserializer : IPacketDeserializer
+    internal class PacketDeserializer : SessionPacketProcessorBase
     {
         private const int ProtocolSize = sizeof(ushort);
-        public const int LegnthSize = sizeof(int);
+        private const int HeaderSize = sizeof(int);
         readonly SCProtocolHandler _handler;
         public PacketDeserializer(SCProtocolHandler handler)
         {
             _handler = handler;
         }
-        public bool IsCompletePacketInBuffer(ArrayQueue<byte> buffer)
+
+        public override bool TakeReceivedPacket(ArrayQueue<byte> buffer, out ArraySegment<byte> packet, out int consumedBytes)
         {
-            if (buffer.Count < LegnthSize)
+            packet = null;
+            consumedBytes = 0;
+            if (buffer.Count < HeaderSize)
             {
                 return false;
             }
-            var packetSizeBytes = BitConverter.ToInt32(buffer.Peek(LegnthSize));
-            return (buffer.Count - LegnthSize) >= packetSizeBytes;
+
+            var bodySize = BitConverter.ToInt32(buffer.Peek(HeaderSize));
+            if (buffer.Count < HeaderSize + bodySize)
+            {
+                return false;
+            }
+
+            buffer.TryReadBytes(out _, HeaderSize);
+
+            consumedBytes = bodySize;
+
+            return buffer.TrySlice(out packet, bodySize);
         }
 
-        public void Deserialize(ArrayQueue<byte> buffer)
+        public override void ProcessPacket(in ArraySegment<byte> packet)
         {
-            var packetSizeBytes = BitConverter.ToInt32(buffer.Read(LegnthSize));
-            var bytes = buffer.Read(packetSizeBytes);
-            var protocol = BitConverter.ToInt16(bytes);
-            var body = Encoding.UTF8.GetString(bytes, ProtocolSize, bytes.Length - ProtocolSize);
+            var protocol = BitConverter.ToInt16(packet);
+
             if (ProtocolHandlerMapper.ValidateProtocol<SCProtocolHandler>(protocol) == false)
             {
                 LogHelper.Error($"[Server]protocol invalid - {protocol}");
                 return;
             }
+            var body = Encoding.UTF8.GetString(packet.Array, packet.Offset + ProtocolSize, packet.Count - ProtocolSize);
             ProtocolHandlerMapper<SCProtocolHandler, string>.DispatchProtocolAction(_handler, protocol, body);
         }
     }

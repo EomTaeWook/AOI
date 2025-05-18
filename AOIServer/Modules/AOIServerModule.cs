@@ -4,8 +4,6 @@ using Dignus.Framework;
 using Dignus.Log;
 using Dignus.Sockets;
 using Dignus.Sockets.Interfaces;
-using System;
-using System.Collections.Generic;
 
 namespace AOIServer.Modules
 {
@@ -39,7 +37,7 @@ namespace AOIServer.Modules
             int port = 10000;
             Task.Run(async () =>
             {
-                _aoiServer.Start("", port, ProtocolType.Tcp, 100);
+                _aoiServer.Start("", port, 100);
                 LogHelper.Debug($"aoi server start... port : {port}");
                 _isActive = true;
                 while (_isActive)
@@ -48,11 +46,11 @@ namespace AOIServer.Modules
                 }
             }).GetAwaiter().GetResult();
         }
-        private Tuple<IPacketSerializer, IPacketDeserializer, ICollection<ISessionComponent>> MakeSerializersFunc()
+        private Tuple<IPacketSerializer, ISessionReceiver, ICollection<ISessionComponent>> MakeSerializersFunc()
         {
             CSProtocolHandler handler = new();
 
-            return Tuple.Create<IPacketSerializer, IPacketDeserializer, ICollection<ISessionComponent>>(
+            return Tuple.Create<IPacketSerializer, ISessionReceiver, ICollection<ISessionComponent>>(
                 new PacketSerializer(),
                 new PacketDeserializer(handler),
                 new List<ISessionComponent>()

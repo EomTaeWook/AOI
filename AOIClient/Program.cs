@@ -1,5 +1,4 @@
 using AOIClient.Modules.Handler;
-using Dignus.Extensions.Log;
 using Dignus.Log;
 using Dignus.Sockets;
 using Protocol.SAndC;
