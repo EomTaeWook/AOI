@@ -7,7 +7,7 @@ using System.Text;
 
 namespace AOIServer.Modules.Serializer
 {
-    internal class PacketDeserializer : SessionPacketProcessorBase
+    internal class PacketDeserializer : PacketHandlerBase
     {
         private const int HeaderSize = sizeof(int);
         private const int ProtocolSize = sizeof(ushort);

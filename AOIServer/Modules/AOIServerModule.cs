@@ -46,11 +46,11 @@ namespace AOIServer.Modules
                 }
             }).GetAwaiter().GetResult();
         }
-        private Tuple<IPacketSerializer, ISessionReceiver, ICollection<ISessionComponent>> MakeSerializersFunc()
+        private SessionSetup MakeSerializersFunc()
         {
             CSProtocolHandler handler = new();
 
-            return Tuple.Create<IPacketSerializer, ISessionReceiver, ICollection<ISessionComponent>>(
+            return new SessionSetup(
                 new PacketSerializer(),
                 new PacketDeserializer(handler),
                 new List<ISessionComponent>()

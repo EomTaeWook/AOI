@@ -44,7 +44,7 @@ namespace AOIClient.Modules
             {
                 npc.Connect("127.0.0.1", 10000);
                 _npcs.Add(npc);
-                npc.TrySend(Packet.MakePacket<Login>(CSProtocol.Login, new Login()
+                npc.Send(Packet.MakePacket<Login>(CSProtocol.Login, new Login()
                 {
                     IsNpc = true,
                     Nickname = $"Npc{_npcNumber++}"
@@ -66,7 +66,7 @@ namespace AOIClient.Modules
             {
                 _client.Connect("127.0.0.1", 10000);
 
-                _client.TrySend(Packet.MakePacket(CSProtocol.Login,
+                _client.Send(Packet.MakePacket(CSProtocol.Login,
                     new Login()
                     {
                         Nickname = "Player1"
@@ -79,10 +79,10 @@ namespace AOIClient.Modules
             }
         }
 
-        private Tuple<IPacketSerializer, ISessionReceiver, ICollection<ISessionComponent>> MakeSerializersFunc()
+        private SessionSetup MakeSerializersFunc()
         {
             SCProtocolHandler handler = new SCProtocolHandler();
-            return Tuple.Create<IPacketSerializer, ISessionReceiver, ICollection<ISessionComponent>>(
+            return new SessionSetup(
                 new PacketSerializer(),
                 new PacketDeserializer(handler),
                 new List<ISessionComponent>()
@@ -93,7 +93,7 @@ namespace AOIClient.Modules
 
         public void Send(IPacket packet)
         {
-            _client.TrySend(packet);
+            _client.Send(packet);
         }
     }
 

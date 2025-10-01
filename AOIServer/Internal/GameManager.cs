@@ -45,7 +45,7 @@ namespace AOIServer.Internal
             {
                 if (_userDatas.TryGetValue(item.Nickname, out User other))
                 {
-                    other.Session.TrySend(Packet.MakePacket(
+                    other.Session.Send(Packet.MakePacket(
                         SCProtocol.Despawn,
                         new Despawn()
                         {
@@ -109,14 +109,14 @@ namespace AOIServer.Internal
 
                 if (_userDatas.TryGetValue(item.Nickname, out User addedUser))
                 {
-                    addedUser.Session.TrySend(Packet.MakePacket(
+                    addedUser.Session.Send(Packet.MakePacket(
                         SCProtocol.Spawn,
                         new Spawn()
                         {
                             Player = user.Player
                         }));
 
-                    user.Session.TrySend(Packet.MakePacket(
+                    user.Session.Send(Packet.MakePacket(
                         SCProtocol.Spawn,
                         new Spawn()
                         {
@@ -135,14 +135,14 @@ namespace AOIServer.Internal
 
                 if (_userDatas.TryGetValue(item.Nickname, out User removedUser))
                 {
-                    removedUser.Session.TrySend(Packet.MakePacket(
+                    removedUser.Session.Send(Packet.MakePacket(
                         SCProtocol.Despawn,
                         new Despawn()
                         {
                             Player = user.Player
                         }));
 
-                    user.Session.TrySend(Packet.MakePacket(
+                    user.Session.Send(Packet.MakePacket(
                         SCProtocol.Despawn,
                         new Despawn()
                         {
