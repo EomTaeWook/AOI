@@ -84,7 +84,7 @@ namespace AOIClient.Modules
             SCProtocolHandler handler = new SCProtocolHandler();
             return new SessionSetup(
                 new PacketSerializer(),
-                new PacketDeserializer(handler),
+                new PacketProcessor(handler),
                 new List<ISessionComponent>()
                 {
                     handler

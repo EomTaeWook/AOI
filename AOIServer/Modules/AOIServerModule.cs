@@ -52,7 +52,7 @@ namespace AOIServer.Modules
 
             return new SessionSetup(
                 new PacketSerializer(),
-                new PacketDeserializer(handler),
+                new PacketHandler(handler),
                 new List<ISessionComponent>()
                 {
                     handler

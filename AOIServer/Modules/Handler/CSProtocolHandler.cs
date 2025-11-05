@@ -1,4 +1,5 @@
-﻿using AOIServer.Internal;
+﻿using AOIServer.Attributes;
+using AOIServer.Internal;
 using AOIServer.Net;
 using Dignus.Sockets.Attributes;
 using Dignus.Sockets.Interfaces;
@@ -11,9 +12,10 @@ namespace AOIServer.Modules.Handler
 {
     public partial class CSProtocolHandler : IProtocolHandler<string>, ISessionComponent
     {
-        private User User { get; set; }
+        public User User { get; private set; }
         public ISession Session { get; private set; }
 
+        [Authorization]
         [ProtocolName("Move")]
         public void Process(Move packet)
         {

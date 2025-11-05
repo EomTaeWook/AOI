@@ -1,24 +1,26 @@
-﻿using AOIServer.Modules.Handler;
+﻿using AOIServer.Middlewares;
+using AOIServer.Modules.Handler;
 using Dignus.Collections;
 using Dignus.Log;
 using Dignus.Sockets;
+using Dignus.Sockets.Interfaces;
 using Dignus.Sockets.Processing;
 using System.Text;
 
 namespace AOIServer.Modules.Serializer
 {
-    internal class PacketDeserializer : PacketHandlerBase
+    internal class PacketHandler : StatelessPacketHandlerBase
     {
         private const int HeaderSize = sizeof(int);
         private const int ProtocolSize = sizeof(ushort);
 
         private readonly CSProtocolHandler _protocolHandler;
-        public PacketDeserializer(CSProtocolHandler csProtocolHandler)
+        public PacketHandler(CSProtocolHandler csProtocolHandler)
         {
             _protocolHandler = csProtocolHandler;
         }
 
-        public override bool TakeReceivedPacket(ArrayQueue<byte> buffer, out ArraySegment<byte> packet, out int consumedBytes)
+        public override bool TakeReceivedPacket(ISession session, ArrayQueue<byte> buffer, out ArraySegment<byte> packet, out int consumedBytes)
         {
             packet = null;
             consumedBytes = 0;
@@ -40,7 +42,7 @@ namespace AOIServer.Modules.Serializer
             return buffer.TrySlice(out packet, bodySize);
         }
 
-        public override void ProcessPacket(in ArraySegment<byte> packet)
+        public override async Task ProcessPacketAsync(ISession session, ArraySegment<byte> packet)
         {
             var protocol = BitConverter.ToInt16(packet);
 
@@ -50,7 +52,16 @@ namespace AOIServer.Modules.Serializer
                 return;
             }
             var body = Encoding.UTF8.GetString(packet.Array, packet.Offset + ProtocolSize, packet.Count - ProtocolSize);
-            ProtocolHandlerMapper<CSProtocolHandler, string>.DispatchProtocolAction(_protocolHandler, protocol, body);
+
+            var context = new PipeContext()
+            {
+                Body = body,
+                Handler = _protocolHandler,
+                Protocol = protocol,
+                Session = session
+            };
+
+            await ProtocolPipelineInvoker<PipeContext, CSProtocolHandler, string>.ExecuteAsync(protocol, ref context);
         }
     }
 }

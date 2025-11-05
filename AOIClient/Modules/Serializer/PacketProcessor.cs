@@ -7,12 +7,12 @@ using System.Text;
 
 namespace AOIClient.Modules.Serializer
 {
-    internal class PacketDeserializer : PacketHandlerBase
+    internal class PacketProcessor : PacketHandlerBase
     {
         private const int ProtocolSize = sizeof(ushort);
         private const int HeaderSize = sizeof(int);
         readonly SCProtocolHandler _handler;
-        public PacketDeserializer(SCProtocolHandler handler)
+        public PacketProcessor(SCProtocolHandler handler)
         {
             _handler = handler;
         }
@@ -38,8 +38,7 @@ namespace AOIClient.Modules.Serializer
 
             return buffer.TrySlice(out packet, bodySize);
         }
-
-        public override void ProcessPacket(in ArraySegment<byte> packet)
+        public override async Task ProcessPacketAsync(ArraySegment<byte> packet)
         {
             var protocol = BitConverter.ToInt16(packet);
 
@@ -49,7 +48,8 @@ namespace AOIClient.Modules.Serializer
                 return;
             }
             var body = Encoding.UTF8.GetString(packet.Array, packet.Offset + ProtocolSize, packet.Count - ProtocolSize);
-            ProtocolHandlerMapper<SCProtocolHandler, string>.DispatchProtocolAction(_handler, protocol, body);
+
+            await ProtocolHandlerMapper<SCProtocolHandler, string>.InvokeHandlerAsync(_handler, protocol, body);
         }
     }
 }
