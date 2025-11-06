@@ -6,6 +6,7 @@ using AOIServer.Modules;
 using AOIServer.Modules.Handler;
 using Dignus.Log;
 using Dignus.Sockets;
+using Dignus.Sockets.Pipeline;
 using Protocol.CAndS;
 using System.Reflection;
 
@@ -18,10 +19,9 @@ internal class Program
         LogBuilder.Configuration(LogConfigXmlReader.Load(logConfigPath));
         LogBuilder.Build();
 
-        var invoker = ProtocolHandlerMapper<CSProtocolHandler, string>.BindAndCreateInvoker<PipeContext, CSProtocol>();
-
-        ProtocolPipelineInvoker<PipeContext, CSProtocolHandler, string>.Use<CSProtocol>(invoker,
-            (method, pipeline) =>
+        ProtocolPipelineInvoker<PipeContext, CSProtocolHandler, string>
+            .Bind<CSProtocol>(new ProtocolHandlerBinder<PipeContext, CSProtocolHandler, string>())
+            .Use((method, pipeline) =>
             {
                 var filters = method.GetCustomAttributes<ActionAttribute>();
                 var orderedFilters = filters.OrderBy(r => r.Order).ToList();
@@ -30,7 +30,8 @@ internal class Program
                     var actionMiddleware = new ActionAttributeMiddleware(orderedFilters);
                     pipeline.Use(actionMiddleware);
                 }
-            });
+            })
+            .Build();
 
         AOIServerModule.Instance.Start();
     }

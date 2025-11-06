@@ -6,4 +6,9 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Dignus.Log" Version="1.0.4" />
+    <PackageReference Include="Dignus.Sockets" Version="1.0.9" />
+  </ItemGroup>
+
 </Project>
