@@ -161,7 +161,7 @@ namespace AOIClient
         {
             if (keyData == Keys.Left)
             {
-                ClientModule.Instance.Send(Packet.MakePacket(CSProtocol.Move,
+                ClientModule.Instance.SendAsync(Packet.MakePacket(CSProtocol.Move,
                     new Move()
                     {
                         X = -1,
@@ -170,7 +170,7 @@ namespace AOIClient
             }
             else if (keyData == Keys.Right)
             {
-                ClientModule.Instance.Send(Packet.MakePacket(CSProtocol.Move,
+                ClientModule.Instance.SendAsync(Packet.MakePacket(CSProtocol.Move,
                     new Move()
                     {
                         X = 1,
@@ -179,7 +179,7 @@ namespace AOIClient
             }
             else if (keyData == Keys.Down)
             {
-                ClientModule.Instance.Send(Packet.MakePacket(CSProtocol.Move,
+                ClientModule.Instance.SendAsync(Packet.MakePacket(CSProtocol.Move,
                     new Move()
                     {
                         X = 0,
@@ -188,7 +188,7 @@ namespace AOIClient
             }
             else if (keyData == Keys.Up)
             {
-                ClientModule.Instance.Send(Packet.MakePacket(CSProtocol.Move,
+                ClientModule.Instance.SendAsync(Packet.MakePacket(CSProtocol.Move,
                     new Move()
                     {
                         X = 0,

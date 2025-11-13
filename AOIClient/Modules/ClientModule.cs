@@ -91,9 +91,9 @@ namespace AOIClient.Modules
                 });
         }
 
-        public void Send(IPacket packet)
+        public void SendAsync(IPacket packet)
         {
-            _client.Send(packet);
+            _client.SendAsync(packet);
         }
     }
 
